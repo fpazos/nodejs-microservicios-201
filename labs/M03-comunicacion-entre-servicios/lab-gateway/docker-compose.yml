@@ -1,0 +1,17 @@
+services:
+  agenda:
+    build: ./agenda
+    container_name: ms-lab-agenda
+  tiempo:
+    build: ./tiempo
+    container_name: ms-lab-tiempo
+  gateway:
+    build: ./gateway
+    container_name: ms-lab-gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gateway/server.mjs:/app/server.mjs
+    depends_on:
+      - agenda
+      - tiempo

@@ -1,0 +1,15 @@
+services:
+  clima:
+    build: ./clima
+    container_name: ms-gw-clima
+  cotizaciones:
+    build: ./cotizaciones
+    container_name: ms-gw-cotizaciones
+  gateway:
+    build: ./gateway
+    container_name: ms-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - clima
+      - cotizaciones

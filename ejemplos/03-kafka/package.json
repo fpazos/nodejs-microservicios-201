@@ -1,0 +1,10 @@
+{
+  "name": "ejemplo-kafka",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "publicar": "node publicador.mjs",
+    "consumir": "node consumidor.mjs"
+  },
+  "dependencies": { "kafkajs": "^2.2.4" }
+}

@@ -1,0 +1,7 @@
+services:
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: ms-rabbit-avisos
+    ports:
+      - "5672:5672"
+      - "15672:15672"

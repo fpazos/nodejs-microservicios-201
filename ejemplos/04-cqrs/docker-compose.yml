@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: ms-pg-comandas
+    environment:
+      POSTGRES_PASSWORD: lab
+      POSTGRES_DB: comandas
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7
+    container_name: ms-redis-comandas
+    ports:
+      - "6379:6379"

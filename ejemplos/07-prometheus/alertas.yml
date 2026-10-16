@@ -1,0 +1,10 @@
+groups:
+  - name: avisos
+    rules:
+      - alert: AvisosSinRaspado
+        expr: up{job="avisos"} == 0
+        for: 15s
+        labels:
+          gravedad: aviso
+        annotations:
+          resumen: Prometheus no rasca el proceso de avisos

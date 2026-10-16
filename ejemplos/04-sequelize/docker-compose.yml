@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: ms-pg-butacas
+    environment:
+      POSTGRES_PASSWORD: lab
+      POSTGRES_DB: sala
+    ports:
+      - "5432:5432"

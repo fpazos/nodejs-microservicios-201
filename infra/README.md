@@ -1,57 +1,38 @@
-# Entorno de laboratorio
+# Entorno
 
-El curso corre en un Codespace o en un Linux con Docker. No hace falta instalar Node en el sistema si ya lo trae el Codespace.
+Codespace o un Linux con Docker. Node.js 22 (`node -v`). `docker info` tiene que terminar sin error.
 
-## Qué tiene que responder la terminal
+Los ejemplos y los laboratorios anteriores al módulo de Kubernetes levantan sus dependencias con Docker Compose. No hace falta entender el Dockerfile para usarlos. La imagen, Compose como tema, y kind, están en el módulo 6.
 
-```bash
-node -v
-docker info
-curl --version
-openssl version
-```
+## Limpiar
 
-`node -v` tiene que ser la rama 22. `docker info` tiene que terminar sin error.
-
-Desde el módulo de Kubernetes, además:
+Desde la raíz del repo. Borra los contenedores cuyo nombre empieza por `ms-` y el clúster kind `ms`.
 
 ```bash
-kind version
-kubectl version --client
-helm version
+bash scripts/limpiar-entorno.sh
 ```
 
-## Datos que se repiten
+Úsalo cuando un puerto (3001, 5432, 6379, 27017, 5672, 9092) esté ocupado por otro ejemplo.
 
-| Qué | Valor |
-|-----|--------|
-| SKU | `NX-1` |
-| Producto | `Sobre 1 kg` |
-| Pedido | `PED-1001` |
-| Operadora | `ana` / rol `operador` |
-| Cliente | `luis` / rol `cliente` |
+## Puertos que aparecen
 
-Las contraseñas de cada contenedor están en la página que lo arranca. Son de este laboratorio.
-
-## Puertos
-
-| Puerto | Quién lo usa |
-|--------|----------------|
-| 3001 | `catalogo` |
-| 3002 | `pedidos` |
-| 3003 | `notificaciones` o el WebSocket |
-| 4000 | Proveedor OAuth del laboratorio |
+| Puerto | Quién |
+|--------|--------|
+| 3001 | La mayoría de los servicios de ejemplo |
+| 3002 | CQRS, turnos, portal OAuth |
+| 3003 | WebSocket |
+| 4000 | Proveedor OAuth |
+| 3443 | HTTPS del ejemplo de cifrado |
+| 50051 | gRPC |
 | 5432 | PostgreSQL |
-| 5672 / 15672 | RabbitMQ / consola |
+| 5672 / 15672 | RabbitMQ |
 | 6379 | Redis |
-| 9092 | Kafka |
-| 27017 | MongoDB |
+| 8080 | Gateway |
+| 8500 | Consul |
 | 9090 / 3000 | Prometheus / Grafana |
-| 16686 / 4318 | Jaeger / OTLP HTTP |
+| 9092 | Kafka |
+| 16686 / 4318 | Jaeger |
 | 9200 / 5601 | Elasticsearch / Kibana |
+| 27017 | MongoDB |
 
-Si un puerto está ocupado, la página que lo usa empieza por `docker rm -f` del nombre que ella misma crea. Un proceso Node de un lab anterior se para con Ctrl+C en esa terminal antes de arrancar el siguiente.
-
-## Dónde se trabaja
-
-Cada página crea una carpeta `~/nexo/<nombre-del-lab>`. No se commitea. El código que hay que guardar es el de las páginas, copiado ahí.
+kind y Helm solo en `ejemplos/06-kubernetes`, `ejemplos/06-helm` y `labs/M06-docker-y-kubernetes/lab-kind`.

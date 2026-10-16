@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eco-datos
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 10Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eco
+  template:
+    metadata:
+      labels:
+        app: eco
+    spec:
+      containers:
+        - name: eco
+          image: ms-eco:lab
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          volumeMounts:
+            - name: datos
+              mountPath: /datos
+      volumes:
+        - name: datos
+          persistentVolumeClaim:
+            claimName: eco-datos
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eco
+spec:
+  selector:
+    app: eco
+  ports:
+    - port: 3001
+      targetPort: 3001

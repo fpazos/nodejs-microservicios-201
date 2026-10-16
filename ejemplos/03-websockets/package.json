@@ -1,0 +1,10 @@
+{
+  "name": "ejemplo-websockets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "servidor": "node servidor.mjs",
+    "cliente": "node cliente.mjs"
+  },
+  "dependencies": { "ws": "^8.18.2" }
+}

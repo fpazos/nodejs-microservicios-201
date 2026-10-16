@@ -1,0 +1,21 @@
+services:
+  consul:
+    image: hashicorp/consul:1.20
+    container_name: ms-consul-reloj
+    command: agent -dev -client=0.0.0.0 -ui
+    ports:
+      - "8500:8500"
+  reloj:
+    build: ./reloj
+    container_name: ms-reloj
+    environment:
+      CONSUL_HTTP_ADDR: http://consul:8500
+    depends_on:
+      - consul
+  cliente:
+    build: ./cliente
+    container_name: ms-reloj-cliente
+    environment:
+      CONSUL_HTTP_ADDR: http://consul:8500
+    depends_on:
+      - reloj

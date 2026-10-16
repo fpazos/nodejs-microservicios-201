@@ -1,0 +1,16 @@
+syntax = "proto3";
+package inventario;
+
+service Inventario {
+  rpc GetPieza (PiezaId) returns (Pieza);
+}
+
+message PiezaId {
+  string codigo = 1;
+}
+
+message Pieza {
+  string codigo = 1;
+  string nombre = 2;
+  int32 stock = 3;
+}

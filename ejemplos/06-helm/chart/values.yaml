@@ -1,0 +1,2 @@
+replicaCount: 2
+image: ms-eco:lab

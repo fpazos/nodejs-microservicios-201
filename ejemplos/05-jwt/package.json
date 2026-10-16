@@ -1,0 +1,7 @@
+{
+  "name": "ejemplo-jwt",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs" },
+  "dependencies": { "express": "^5.1.0", "jsonwebtoken": "^9.0.2" }
+}

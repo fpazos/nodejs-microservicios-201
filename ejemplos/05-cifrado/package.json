@@ -1,0 +1,12 @@
+{
+  "name": "ejemplo-cifrado",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clave": "node clave.mjs",
+    "cifrar": "node direccion.mjs",
+    "leer": "node leer.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": { "bcrypt": "^5.1.1", "express": "^5.1.0" }
+}

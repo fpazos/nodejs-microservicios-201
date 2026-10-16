@@ -1,0 +1,6 @@
+{
+  "name": "ejemplo-logs",
+  "private": true,
+  "type": "module",
+  "dependencies": { "express": "^5.1.0", "pino": "^9.7.0" }
+}

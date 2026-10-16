@@ -1,0 +1,7 @@
+{
+  "name": "ejemplo-rutas-http",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs" },
+  "dependencies": { "express": "^5.1.0" }
+}

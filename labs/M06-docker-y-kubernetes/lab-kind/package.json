@@ -1,0 +1,6 @@
+{
+  "name": "eco-lab",
+  "private": true,
+  "type": "module",
+  "dependencies": { "express": "^5.1.0" }
+}

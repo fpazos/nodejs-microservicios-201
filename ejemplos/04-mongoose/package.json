@@ -1,0 +1,10 @@
+{
+  "name": "ejemplo-mongoose",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "alta": "node alta.mjs",
+    "lectura": "node lectura.mjs"
+  },
+  "dependencies": { "mongoose": "^8.15.1" }
+}

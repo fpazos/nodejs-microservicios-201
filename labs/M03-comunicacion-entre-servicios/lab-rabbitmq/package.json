@@ -1,0 +1,10 @@
+{
+  "name": "lab-rabbitmq",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "publicar": "node publicador.mjs",
+    "consumir": "node consumidor.mjs"
+  },
+  "dependencies": { "amqplib": "^0.10.5" }
+}

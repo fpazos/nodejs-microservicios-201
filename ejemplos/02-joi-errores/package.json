@@ -1,0 +1,7 @@
+{
+  "name": "ejemplo-joi-errores",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs" },
+  "dependencies": { "express": "^5.1.0", "joi": "^17.13.3" }
+}

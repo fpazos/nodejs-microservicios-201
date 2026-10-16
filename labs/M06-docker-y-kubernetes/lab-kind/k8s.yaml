@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eco
+  template:
+    metadata:
+      labels:
+        app: eco
+    spec:
+      containers:
+        - name: eco
+          image: ms-eco-lab:lab
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eco
+spec:
+  selector:
+    app: eco-mal
+  ports:
+    - port: 3001
+      targetPort: 3001

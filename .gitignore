@@ -14,3 +14,9 @@ curso.meta.json
 # Entorno local
 infra/.env
 *.code-workspace
+node_modules/
+
+# Salida del ejemplo de cifrado
+*.pem
+clave.bin
+direccion.bin

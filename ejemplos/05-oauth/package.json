@@ -1,0 +1,15 @@
+{
+  "name": "ejemplo-oauth",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "proveedor": "node proveedor.mjs",
+    "portal": "node portal.mjs"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-oauth2": "^1.8.0"
+  }
+}

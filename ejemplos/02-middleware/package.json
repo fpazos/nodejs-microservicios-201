@@ -1,0 +1,11 @@
+{
+  "name": "ejemplo-middleware",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs" },
+  "dependencies": {
+    "express": "^5.1.0",
+    "morgan": "^1.10.0",
+    "compression": "^1.8.0"
+  }
+}

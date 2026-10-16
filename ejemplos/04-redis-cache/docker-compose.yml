@@ -1,0 +1,11 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: ms-mongo-fichas
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis:7
+    container_name: ms-redis-fichas
+    ports:
+      - "6379:6379"

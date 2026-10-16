@@ -1,0 +1,5 @@
+apiVersion: v2
+name: eco
+description: Eco de un pod
+version: 0.1.0
+appVersion: "1"

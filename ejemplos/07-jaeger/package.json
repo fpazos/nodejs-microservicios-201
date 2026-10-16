@@ -1,0 +1,12 @@
+{
+  "name": "ejemplo-jaeger",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node --import ./instrumentacion.mjs server.mjs" },
+  "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.62.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.203.0",
+    "@opentelemetry/sdk-node": "^0.203.0",
+    "express": "^5.1.0"
+  }
+}
