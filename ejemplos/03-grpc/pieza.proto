@@ -1,3 +1,6 @@
+// El contrato es este fichero. Cliente y servidor sacan GetPieza de aquí,
+// no de una ruta. El número de cada campo es su etiqueta en el cable.
+// Mira la rpc: un mensaje de id entra y un mensaje de pieza sale.
 syntax = "proto3";
 package inventario;
 
@@ -5,6 +8,7 @@ service Inventario {
   rpc GetPieza (PiezaId) returns (Pieza);
 }
 
+// El argumento es solo el código. Así la pregunta no rellena nombre ni stock.
 message PiezaId {
   string codigo = 1;
 }

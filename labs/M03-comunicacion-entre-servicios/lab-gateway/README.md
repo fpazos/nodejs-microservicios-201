@@ -18,40 +18,59 @@ echo
 
 `{"ok":true}`. `curl http://127.0.0.1:3001/hoy` no conecta.
 
-### 1 — Reenvía agenda
+### 1 — Crea `gateway/rutas.mjs` y enganchalo
 
-**Acción:** en `gateway/server.mjs`, antes de `listen`:
+**Acción:** crea `gateway/rutas.mjs` con esto.
 
 ```js
-app.get('/api/agenda/hoy', async (req, res) => {
-  const respuesta = await fetch('http://agenda:3001/hoy');
+async function reenviar(res, url) {
+  const respuesta = await fetch(url);
   res.status(respuesta.status).json(await respuesta.json());
-});
+}
+
+export function montar(app) {
+  app.get('/api/agenda/hoy', async (req, res) => {
+    await reenviar(res, 'http://agenda:3001/hoy');
+  });
+
+  app.get('/api/tiempo/manana', async (req, res) => {
+    await reenviar(res, 'http://tiempo:3002/manana');
+  });
+}
 ```
 
-Espera a que el log de `ms-lab-gateway` diga otra vez `gateway en 8080` (`docker logs -f ms-lab-gateway` un momento, o unos segundos).
+En `gateway/server.mjs`, añade el import arriba y, antes de `listen`, esta línea.
+
+```js
+import { montar } from './rutas.mjs';
+```
+
+```js
+montar(app);
+```
+
+Espera a que el log de `ms-lab-gateway` diga otra vez `gateway en 8080`.
 
 ```bash
 curl -s http://127.0.0.1:8080/api/agenda/hoy
 echo
-```
-
-**Por qué:** el cliente habla con un puerto. El nombre `agenda` solo existe en la red de Compose, que es donde corre el gateway.
-
-**Resultado esperado:** `{"cita":"dentista"}`.
-
-### 2 — Reenvía el tiempo
-
-**Acción:** la misma forma, camino `/api/tiempo/manana`, destino `http://tiempo:3002/manana`.
-
-```bash
 curl -s http://127.0.0.1:8080/api/tiempo/manana
 echo
 ```
 
-**Por qué:** el segundo servicio no cambia el puerto público. Cambia el prefijo.
+**Por qué:** el cliente habla con un puerto. Los nombres `agenda` y `tiempo` solo existen en la red de Compose, que es donde corre el gateway.
 
-**Resultado esperado:** `{"estado":"lluvia"}`.
+**Resultado esperado:** `{"cita":"dentista"}` y `{"estado":"lluvia"}`.
+
+## Si quieres probar
+
+En `rutas.mjs`, cambia el destino de agenda a `http://agenda:3001/ayer` y espera el reinicio. El `curl` a `/api/agenda/hoy` responde 404: el gateway llega a agenda y agenda no tiene esa ruta. Vuelve a dejar `/hoy`.
+
+## Así se ve
+
+Los dos `curl` al 8080. El puerto 3001 del host no responde.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 

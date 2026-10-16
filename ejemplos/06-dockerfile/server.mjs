@@ -1,3 +1,6 @@
+// 0.0.0.0: en 127.0.0.1 el -p del host no entra, porque esa interfaz es
+// solo el interior del contenedor. HOSTNAME lo rellena el runtime; fuera
+// de Docker cae en `local`.
 import express from 'express';
 
 const app = express();

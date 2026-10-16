@@ -24,33 +24,47 @@ curl -s -w '\n%{http_code}\n' http://127.0.0.1:3002/turnos/T-1
 
 201 y, enseguida, 200. Los dos ven la mesa.
 
-### 1 — El POST proyecta un instante después
+### 1 — Crea `proyeccion.mjs`
 
-**Acción:** dentro del POST, después del `upsert` y antes del `res.status(201)`:
+**Acción:** crea `proyeccion.mjs` con esto.
 
 ```js
-setTimeout(() => {
-  redis.set('turno:T-1', JSON.stringify(turno));
-}, 1500);
+export function programar(redis, turno) {
+  setTimeout(() => {
+    redis.set(`turno:${turno.id}`, JSON.stringify(turno));
+  }, 1500);
+}
+
+export async function consultar(redis, id) {
+  const crudo = await redis.get(`turno:${id}`);
+  if (!crudo) return null;
+  return JSON.parse(crudo);
+}
 ```
 
-Reinicia el servidor.
-
-**Por qué:** el 201 significa «la fila está». No significa «quien lee la proyección ya la ve».
-
-**Resultado esperado:** el POST sigue en 201. El GET sigue en 200, porque todavía lee la tabla.
-
-### 2 — El GET solo mira Redis
-
-**Acción:** sustituye el cuerpo del GET por:
+En `server.mjs`, añade el import arriba.
 
 ```js
-const crudo = await redis.get(`turno:${req.params.id}`);
-if (!crudo) {
-  res.status(404).json({ error: 'aun no proyectado' });
-  return;
-}
-res.json(JSON.parse(crudo));
+import { programar, consultar } from './proyeccion.mjs';
+```
+
+Dentro del POST, después del `upsert` y antes del `res.status(201)`, añade esta línea.
+
+```js
+programar(redis, turno);
+```
+
+Sustituye el cuerpo del GET por esto.
+
+```js
+app.get('/turnos/:id', async (req, res) => {
+  const turno = await consultar(redis, req.params.id);
+  if (!turno) {
+    res.status(404).json({ error: 'aun no proyectado' });
+    return;
+  }
+  res.json(turno);
+});
 ```
 
 Reinicia. Borra una proyección vieja si la hubiera: `docker exec ms-lab-redis redis-cli del turno:T-1`.
@@ -66,6 +80,12 @@ docker exec ms-lab-pg psql -U postgres -d turnos -c 'select id, mesa from turnos
 **Por qué:** comando y consulta no pasan por el mismo sitio. El hueco entre los dos es la consistencia eventual. El `select` enseña que el 404 no borró el turno.
 
 **Resultado esperado:** 201, 404 `aun no proyectado`, 200 con `mesa` `4`. El `select` muestra `T-1`.
+
+## Así se ve
+
+201, 404 `aun no proyectado`, 200 con `mesa` `4`. El `select` muestra la fila durante el 404.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 

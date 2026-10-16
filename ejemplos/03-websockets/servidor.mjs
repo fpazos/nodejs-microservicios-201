@@ -1,3 +1,6 @@
+// El canal sigue abierto después del saludo. El servidor escribe al
+// conectar, sin un GET nuevo, y vuelve a escribir cuando llega un texto.
+// El eco sale por el mismo socket. Mira el puerto 3003 y el campo eco.
 import { WebSocketServer } from 'ws';
 
 const wss = new WebSocketServer({ port: 3003 });

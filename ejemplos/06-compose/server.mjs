@@ -1,3 +1,6 @@
+// REDIS_URL nombra al servicio `redis` de Compose, no a una IP. El
+// fallback 127.0.0.1 es para un Redis en el host; dentro de la red de
+// Compose ese loopback sería el propio contenedor y no vería a Redis.
 import express from 'express';
 import Redis from 'ioredis';
 

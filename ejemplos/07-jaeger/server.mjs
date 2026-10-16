@@ -1,3 +1,6 @@
+// La ruta no crea trazos: los abre la instrumentación cargada antes.
+// Cada GET es una petición distinta. Jaeger guarda un trazo por llamada,
+// no un contador acumulado.
 import express from 'express';
 
 const app = express();

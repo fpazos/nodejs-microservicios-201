@@ -2,9 +2,6 @@ services:
   prometheus:
     image: prom/prometheus:v2.55.1
     container_name: ms-lab-prometheus
-    ports:
-      - "9090:9090"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: host
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro

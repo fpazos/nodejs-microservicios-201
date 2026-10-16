@@ -27,7 +27,7 @@ services:
     container_name: ms-fluent
     volumes:
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro # lee el json del contenedor; la app no envía a Elasticsearch
     depends_on:
       - elasticsearch
       - notas

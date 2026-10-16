@@ -1,3 +1,6 @@
+// GCM sí se revierte, con la misma clave. El IV es nuevo en cada cifrado
+// y viaja delante del fichero: sin él, la clave sola no recupera el texto.
+// La etiqueta va en medio para detectar bytes alterados.
 import { createCipheriv, randomBytes } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
 

@@ -1,6 +1,7 @@
 services:
   rabbit:
     image: rabbitmq:3-management
+    hostname: rabbit
     container_name: ms-rabbit-avisos
     ports:
       - "5672:5672"

@@ -1,8 +1,8 @@
 # M01 — Node.js en la arquitectura de microservicios
 
-[← Inicio](../../README.md) · [Siguiente módulo →](../M02-apis-rest-express/README.md)
+[← Inicio](../../README.md) · [Siguiente página →](00-io-no-bloqueante.md)
 
-Node atiende muchas conexiones mientras espera a la red. Un cálculo en el mismo hilo deja de atender. Este módulo no tiene laboratorio: los dos ejemplos se ejecutan y se contrastan.
+Node atiende muchas conexiones mientras espera a la red. Un cálculo en el mismo hilo deja de atender. Este módulo no tiene laboratorio: las dos páginas se explican y se demuestran.
 
 ## Qué aprenderás
 
@@ -10,11 +10,11 @@ Node atiende muchas conexiones mientras espera a la red. Un cálculo en el mismo
 - Por qué `async` no suelta el hilo si no hay un `await`.
 - En qué se apoyan Java, Python y Go para el mismo problema.
 
-## Ejemplos
+## Páginas
 
-| Ejemplo | Qué hay |
-|---------|---------|
-| [I/O no bloqueante](../../ejemplos/01-io-no-bloqueante/README.md) | Un bucle frente a un temporizador |
-| [CPU](../../ejemplos/01-cpu-bloquea/README.md) | Fibonacci en la misma ruta que `/salud`, y la comparación con otros runtimes |
+| # | Página | Después de explicarla |
+|---|--------|------------------------|
+| 00 | [I/O no bloqueante](00-io-no-bloqueante.md) | [Ejemplo](../../ejemplos/01-io-no-bloqueante/README.md) |
+| 01 | [CPU y otros runtimes](01-cpu-y-otros-runtimes.md) | [Ejemplo](../../ejemplos/01-cpu-bloquea/README.md) |
 
-→ Empieza por **[I/O no bloqueante](../../ejemplos/01-io-no-bloqueante/README.md)**.
+→ Empieza por **[I/O no bloqueante](00-io-no-bloqueante.md)**.

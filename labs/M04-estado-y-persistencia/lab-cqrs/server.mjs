@@ -25,11 +25,6 @@ app.get('/turnos/:id', async (req, res) => {
     return;
   }
   res.json(fila.toJSON());
-  // TODO: este GET no debe leer PostgreSQL.
-  // Lee la clave turno:<id> en redis.
-  // Si no está, 404 con { error: 'aun no proyectado' }.
-  // En el POST, copia el turno a esa clave 1,5 s después del upsert.
-  void redis;
 });
 
 app.listen(3002, () => console.log('turnos en 3002'));

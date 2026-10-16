@@ -4,7 +4,7 @@ metadata:
   name: eco
 spec:
   selector:
-    app: eco
+    app: eco # el cliente usa el nombre del Service; esto elige el Pod
   ports:
     - port: 3001
       targetPort: 3001

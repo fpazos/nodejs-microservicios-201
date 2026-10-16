@@ -1,3 +1,5 @@
+// sync crea la tabla en este ejemplo de un solo nodo. upsert deja la
+// fila A1. Este proceso cierra; la fila sigue en PostgreSQL.
 import { sequelize, Butaca } from './modelo.mjs';
 
 await sequelize.sync();

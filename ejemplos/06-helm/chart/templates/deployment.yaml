@@ -6,7 +6,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: eco
+      app: eco # misma etiqueta que el Service; el nombre del release no selecciona Pods
   template:
     metadata:
       labels:

@@ -1,3 +1,5 @@
+// La ficha tiene que existir antes del primer GET. unique en codigo:
+// lanzar la semilla otra vez actualiza el mismo documento, no crea otro.
 import mongoose from 'mongoose';
 
 await mongoose.connect('mongodb://127.0.0.1:27017/fichas');

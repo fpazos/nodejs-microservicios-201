@@ -20,13 +20,28 @@ npm install
 
 Consola: http://127.0.0.1:15672 usuario `guest`, clave `guest`.
 
-### 1 — Misma cola en los dos ficheros
+### 1 — Crea `mensaje.mjs` y úsalo en los dos programas
 
-**Acción:** en `consumidor.mjs` y en `publicador.mjs`, cambia `PON_AQUI_LA_COLA` por `trabajos`. En el publicador, cambia `PON_AQUI_LA_TAREA` por `barrer`.
+**Acción:** crea `mensaje.mjs` con esto.
 
-**Por qué:** si cada fichero afirma una cola distinta, el mensaje se publica donde nadie lee.
+```js
+export const cola = 'trabajos';
+export const cuerpo = JSON.stringify({ tarea: 'barrer' });
+```
 
-**Resultado esperado:** los dos ficheros dicen `trabajos`. El JSON del publicador es `{"tarea":"barrer"}`.
+En `publicador.mjs` y en `consumidor.mjs`, añade el import junto al de `amqplib`.
+
+```js
+import { cola, cuerpo } from './mensaje.mjs';
+```
+
+En `consumidor.mjs`, borra la línea `const cola = 'PON_AQUI_LA_COLA';`.
+
+En `publicador.mjs`, borra `const cola = 'PON_AQUI_LA_COLA';` y sustituye el `JSON.stringify({ tarea: 'PON_AQUI_LA_TAREA' })` por `cuerpo`.
+
+**Por qué:** si cada fichero afirma una cola distinta, el mensaje se publica donde nadie lee. El nombre vive en un solo sitio.
+
+**Resultado esperado:** los dos programas usan `trabajos`. El JSON publicado es `{"tarea":"barrer"}`.
 
 ### 2 — Publica con el consumidor parado
 
@@ -61,6 +76,12 @@ npm run consumir
 **Por qué:** con alguien escuchando, el aviso no se queda en Ready: pasa al proceso.
 
 **Resultado esperado:** otra línea `{"tarea":"barrer"}` en el consumidor. `Ready` sigue en 0.
+
+## Así se ve
+
+El publicador dice `publicado`. El consumidor imprime `{"tarea":"barrer"}` una vez por cada publicación.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 

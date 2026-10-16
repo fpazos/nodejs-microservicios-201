@@ -18,9 +18,6 @@ app.get('/peliculas/:id', async (req, res) => {
   }
   console.log('mongo', req.params.id);
   res.json(doc);
-  // TODO: antes de ir a Mongo, mira la clave pelicula:<id> en redis.
-  // Si está, responde y no leas Mongo. Si no está, después de leer guarda la clave 60 segundos.
-  void redis;
 });
 
 app.listen(3001, () => console.log('peliculas en 3001'));

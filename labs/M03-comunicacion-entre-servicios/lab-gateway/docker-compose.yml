@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./gateway/server.mjs:/app/server.mjs
+      - ./gateway:/app/codigo
     depends_on:
       - agenda
       - tiempo

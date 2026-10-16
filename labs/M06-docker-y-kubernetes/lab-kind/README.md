@@ -50,15 +50,30 @@ En otra terminal: `curl -s http://127.0.0.1:3001/eco`.
 
 **Resultado esperado:** `{"pod":"eco-..."}`. Para el forward con Ctrl+C cuando hayas visto el JSON.
 
-### 3 — Tres réplicas y el reparto
+### 3 — Tres réplicas, preguntando desde un Pod
 
-**Acción:** en `k8s.yaml` pon `replicas: 3`, aplica y espera.
+**Acción:** en `k8s.yaml` pon `replicas: 3`. Crea `desde-dentro.yaml` con esto.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cliente
+spec:
+  restartPolicy: Never
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ["sh", "-c", "for i in 1 2 3 4 5 6; do curl -s http://eco:3001/eco; echo; done"]
+```
 
 ```bash
 kubectl apply -f k8s.yaml
 kubectl rollout status deployment/eco
-kubectl run cliente --rm -i --restart=Never --image=curlimages/curl -- \
-  sh -c 'for i in 1 2 3 4 5 6; do curl -s http://eco:3001/eco; echo; done'
+kubectl delete pod cliente --ignore-not-found
+kubectl apply -f desde-dentro.yaml
+kubectl wait --for=jsonpath='{.status.phase}'=Succeeded pod/cliente
+kubectl logs cliente
 ```
 
 **Por qué:** `port-forward` se queda en un Pod. Desde otro Pod, el nombre `eco` es el Service y reparte.
@@ -66,6 +81,12 @@ kubectl run cliente --rm -i --restart=Never --image=curlimages/curl -- \
 **Resultado esperado:** seis líneas y, entre ellas, al menos dos valores de `pod`.
 
 El HPA y Helm están en `ejemplos/06-helm`. El volumen que sobrevive al Pod está en `ejemplos/06-kubernetes`.
+
+## Así se ve
+
+El Service tiene endpoints y, entre las seis líneas, aparecen al menos dos nombres de Pod.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 

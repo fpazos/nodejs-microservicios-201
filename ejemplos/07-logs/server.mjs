@@ -1,3 +1,6 @@
+// JSON por stdout, y se acaba el trabajo de este proceso. No hay cliente
+// de Elasticsearch: Fluent Bit lee el log del contenedor y filtra por
+// el texto «nota creada». El id va en el objeto para poder buscar n1.
 import express from 'express';
 import pino from 'pino';
 

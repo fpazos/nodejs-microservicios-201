@@ -25,37 +25,46 @@ curl -s http://127.0.0.1:3001/peliculas/p1; echo
 
 Las dos respuestas son `El faro`. El log dice `mongo p1` dos veces.
 
-### 1 — Lee la clave antes que Mongo
+### 1 — Crea `lectura.mjs` y úsala en el GET
 
-**Acción:** al principio del handler, antes de `findOne`:
+**Acción:** crea `lectura.mjs` con esto.
 
 ```js
-const clave = `pelicula:${req.params.id}`;
-const cacheado = await redis.get(clave);
-if (cacheado) {
-  console.log('redis', req.params.id);
-  res.json(JSON.parse(cacheado));
-  return;
+export async function leer(Pelicula, redis, id) {
+  const clave = `pelicula:${id}`;
+  const cacheado = await redis.get(clave);
+  if (cacheado) {
+    console.log('redis', id);
+    return JSON.parse(cacheado);
+  }
+  const doc = await Pelicula.findOne({ id }).lean();
+  if (!doc) return null;
+  console.log('mongo', id);
+  await redis.set(clave, JSON.stringify(doc), 'EX', 60);
+  return doc;
 }
 ```
 
-Reinicia `npm start` y repite los dos `curl`. El primero sigue diciendo `mongo`: la clave aún no existe. El segundo también, porque todavía no guardas.
-
-**Por qué:** sin este `return`, Redis no ahorra la lectura aunque la clave exista.
-
-**Resultado esperado:** el servidor arranca. Los dos GET siguen viniendo de Mongo.
-
-### 2 — Guarda al salir de Mongo
-
-**Acción:** justo antes de `res.json(doc)`:
+En `server.mjs`, añade el import arriba y sustituye el cuerpo del GET por esto.
 
 ```js
-await redis.set(clave, JSON.stringify(doc), 'EX', 60);
+import { leer } from './lectura.mjs';
+```
+
+```js
+app.get('/peliculas/:id', async (req, res) => {
+  const doc = await leer(Pelicula, redis, req.params.id);
+  if (!doc) {
+    res.status(404).json({ error: 'no encontrada' });
+    return;
+  }
+  res.json(doc);
+});
 ```
 
 Reinicia. Borra la clave por si quedó a medias: `docker exec ms-lab-redis redis-cli del pelicula:p1`. Dos `curl`.
 
-**Por qué:** la caducidad de 60 segundos evita servir un título viejo para siempre. Quien actualice la película tiene que borrar la clave; aquí no hay actualización.
+**Por qué:** la primera vez la clave no existe y se lee Mongo. La segunda, Redis responde y Mongo no se toca. Los 60 segundos evitan servir un título viejo para siempre.
 
 **Resultado esperado:** log `mongo p1` y después `redis p1`. Los dos cuerpos traen `El faro`.
 
@@ -71,6 +80,12 @@ curl -s http://127.0.0.1:3001/peliculas/p1; echo
 **Por qué:** la respuesta sale de Redis. Si la clave no está y Mongo está parado, el GET ya no puede rellenar la caché.
 
 **Resultado esperado:** el JSON de `p1` y una línea `redis` en el servidor.
+
+## Así se ve
+
+Los tres GET traen `El faro`. El log pasa de `mongo` a `redis`, y el tercero sigue en `redis` con Mongo parado.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 

@@ -25,37 +25,43 @@ curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3001/metrics
 
 El POST devuelve `{"votos":1}`. `/metrics` responde 404.
 
-### 1 — Registra el contador y la ruta
+### 1 — Crea `metricas.mjs` y cuenta en el POST
 
-**Acción:** al principio de `server.mjs`:
+**Acción:** crea `metricas.mjs` con esto.
 
 ```js
 import client from 'prom-client';
 
 const registro = new client.Registry();
-const votosTotal = new client.Counter({
+export const votosTotal = new client.Counter({
   name: 'votos_total',
   help: 'Votos recibidos',
   registers: [registro],
 });
+
+export function montarMetricas(app) {
+  app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', registro.contentType);
+    res.end(await registro.metrics());
+  });
+}
 ```
 
-Dentro del POST, junto a `votos += 1`:
+En `server.mjs`, añade el import arriba, llama a `montarMetricas(app)` antes de `listen`, y dentro del POST, junto a `votos += 1`, añade `votosTotal.inc()`.
+
+```js
+import { montarMetricas, votosTotal } from './metricas.mjs';
+```
 
 ```js
 votosTotal.inc();
 ```
 
-Y la ruta:
-
 ```js
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', registro.contentType);
-  res.end(await registro.metrics());
-});
+montarMetricas(app);
 ```
 
-Reinicia `npm start`. Haz dos POST.
+Reinicia `npm start`. La variable `votos` sigue en el JSON del POST. Prometheus no la lee: lee `votos_total`. Haz dos POST.
 
 ```bash
 curl -s http://127.0.0.1:3001/metrics | grep votos_total
@@ -75,9 +81,15 @@ curl -s 'http://127.0.0.1:9090/api/v1/query?query=votos_total'
 echo
 ```
 
-**Por qué:** el raspado es lo que saca el número del proceso. La query es la prueba de que el target `host.docker.internal:3001` se alcanza desde el contenedor.
+**Por qué:** el raspado es lo que saca el número del proceso. La query es la prueba de que Prometheus, en la red del host, llega a `127.0.0.1:3001`.
 
 **Resultado esperado:** un `"value"` cuyo segundo elemento es `"2"`. Puede tardar un raspado (unos segundos) si acabas de reiniciar.
+
+## Así se ve
+
+`/metrics` trae `votos_total 2`. La query de Prometheus devuelve ese mismo `"2"`.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 
@@ -89,5 +101,5 @@ Ctrl+C en el servidor y repite la query.
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| La query no trae `result` | Prometheus no llega al host, o `/metrics` no existe | `curl` local a `/metrics` primero. El compose tiene `host-gateway` |
+| La query no trae `result` | `/metrics` no existe o Prometheus no está en la red del host | `curl` local a `/metrics` primero. El compose usa `network_mode: host` |
 | `votos_total` no está en `/metrics` | El contador no se registró en `registro` | `registers: [registro]` y la ruta usa `registro.metrics()` |

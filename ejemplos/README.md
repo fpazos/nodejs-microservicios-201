@@ -1,6 +1,6 @@
 # Ejemplos
 
-Cada carpeta se ejecuta sola. Trae su `package.json`, el código y, si hace falta, el Compose o los Dockerfile. No continúan una historia de una carpeta a la siguiente.
+Cada carpeta se ejecuta sola. Trae su `package.json`, el código y, si hace falta, el Compose o los Dockerfile. No continúan una historia de una carpeta a la siguiente. El concepto de cada una está en la página del módulo, enlazada al principio de su README.
 
 Si un puerto está ocupado por otro ejemplo, desde la raíz del repo:
 

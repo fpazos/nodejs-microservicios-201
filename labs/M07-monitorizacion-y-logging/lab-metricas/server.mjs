@@ -8,8 +8,4 @@ app.post('/votos', (req, res) => {
   res.status(201).json({ votos });
 });
 
-// TODO cuenta avisos con prom-client en un Counter votos_total
-// y exponlo en GET /metrics.
-// El número `votos` de esta variable no lo ve Prometheus.
-
 app.listen(3001, '0.0.0.0', () => console.log('votos en 3001'));

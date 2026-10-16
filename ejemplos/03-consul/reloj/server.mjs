@@ -1,3 +1,6 @@
+// Al escuchar, el reloj se apunta en Consul con el nombre `reloj` y
+// un check a /salud. La dirección es el nombre del servicio en Compose,
+// porque el cliente corre en otro contenedor. Mira Address, Port y el check.
 import express from 'express';
 
 const consul = process.env.CONSUL_HTTP_ADDR;
@@ -26,6 +29,8 @@ async function registrar() {
   console.log('registrado en consul');
 }
 
+// 0.0.0.0: otro contenedor de la red tiene que poder abrir el 3001.
+// El bucle existe porque Consul puede no aceptar el registro al primer intento.
 app.listen(3001, '0.0.0.0', async () => {
   console.log('reloj en 3001');
   for (let i = 0; i < 15; i += 1) {

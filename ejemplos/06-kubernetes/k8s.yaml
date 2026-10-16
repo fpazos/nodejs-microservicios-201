@@ -16,7 +16,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: eco
+      app: eco # solo adopta Pods con esta etiqueta; tiene que coincidir con template.labels
   template:
     metadata:
       labels:
@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: datos
           persistentVolumeClaim:
-            claimName: eco-datos
+            claimName: eco-datos # el claim sigue vivo cuando el Pod se borra
 ---
 apiVersion: v1
 kind: Service
@@ -42,7 +42,7 @@ metadata:
   name: eco
 spec:
   selector:
-    app: eco
+    app: eco # mismos Pods que el Deployment: sin esta etiqueta el Service no reparte
   ports:
     - port: 3001
       targetPort: 3001

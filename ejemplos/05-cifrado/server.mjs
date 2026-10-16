@@ -1,3 +1,6 @@
+// TLS cifra el canal entre curl y este proceso. El certificado es de un
+// día y está firmado en local: sin -k, curl lo rechaza porque el sistema
+// no confía en esa firma.
 import https from 'node:https';
 import { readFileSync } from 'node:fs';
 import express from 'express';

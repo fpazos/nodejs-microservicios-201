@@ -1,3 +1,6 @@
+// Primero Redis, después Mongo. La clave caduca a los 60 s: es una copia
+// caliente, no la fuente. Con Mongo parado, el GET sigue saliendo de Redis
+// mientras la clave no expire.
 import express from 'express';
 import mongoose from 'mongoose';
 import Redis from 'ioredis';
@@ -21,6 +24,7 @@ app.get('/fichas/:codigo', async (req, res) => {
     return;
   }
   console.log('mongo', clave);
+  // EX y no un set eterno: pasado el minuto, el siguiente GET vuelve a Mongo
   await redis.set(clave, JSON.stringify(doc), 'EX', 60);
   res.json(doc);
 });

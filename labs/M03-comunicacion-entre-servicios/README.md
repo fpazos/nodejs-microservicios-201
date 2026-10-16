@@ -1,40 +1,31 @@
 # M03 — Comunicación entre servicios
 
-[← M02](../M02-apis-rest-express/README.md) · [Siguiente módulo →](../M04-estado-y-persistencia/README.md)
+[← M02](../M02-apis-rest-express/README.md) · [Siguiente página →](00-event-emitter.md)
 
 Un servicio tiene que avisar a otro, preguntarle algo ahora, empujar un dato a quien sigue conectado, encontrar dónde está y ofrecer un solo puerto de entrada.
 
-| Necesidad | Mecanismo | Dónde |
+| Necesidad | Mecanismo | Página |
 |-----------|-----------|--------|
-| Avisar dentro del mismo proceso | `EventEmitter` | Ejemplo y laboratorio |
-| Dejar un aviso aunque el otro proceso esté parado | Cola | RabbitMQ (ejemplo y laboratorio) y Kafka (ejemplo) |
-| Preguntar y esperar la respuesta, con el contrato en un fichero | gRPC | Ejemplo, al lado de un GET |
-| Mantener un canal abierto | WebSocket | Ejemplo |
-| No escribir la dirección a mano | Consul | Ejemplo y laboratorio |
-| Un puerto para el cliente | Gateway en Express | Ejemplo y laboratorio |
+| Avisar dentro del mismo proceso | `EventEmitter` | 00, con laboratorio |
+| Dejar un aviso aunque el otro proceso esté parado | Cola | 01 RabbitMQ, con laboratorio. 02 Kafka, solo ejemplo |
+| Preguntar y esperar, con el contrato en un fichero | gRPC | 03 |
+| Mantener un canal abierto | WebSocket | 04 |
+| No escribir la dirección a mano | Consul | 05, con laboratorio |
+| Un puerto para el cliente | Gateway en Express | 06, con laboratorio |
 
 > [!NOTE]
-> El laboratorio de cola es RabbitMQ. Kafka se ejecuta para ver el topic y el offset del grupo. No hay un segundo laboratorio de broker.
+> El laboratorio de cola es RabbitMQ. Kafka se ejecuta para ver el topic y el offset del grupo.
 
-## Ejemplos
+## Páginas
 
-| Ejemplo | Qué hay |
-|---------|---------|
-| [EventEmitter](../../ejemplos/03-event-emitter/README.md) | `alarma` en un proceso y silencio en el otro |
-| [RabbitMQ](../../ejemplos/03-rabbitmq/README.md) | Cola `avisos` |
-| [Kafka](../../ejemplos/03-kafka/README.md) | Topic `avisos`, grupo `lectores` |
-| [gRPC](../../ejemplos/03-grpc/README.md) | `GetPieza` y el GET |
-| [WebSockets](../../ejemplos/03-websockets/README.md) | Una sala |
-| [Consul](../../ejemplos/03-consul/README.md) | `reloj` se registra y el cliente lo busca |
-| [Gateway](../../ejemplos/03-gateway/README.md) | Clima y cotizaciones detrás del 8080. Tres Dockerfile, uno por carpeta |
+| # | Página | Después de explicarla |
+|---|--------|------------------------|
+| 00 | [EventEmitter](00-event-emitter.md) | [Ejemplo](../../ejemplos/03-event-emitter/README.md) · [laboratorio](lab-eventos/README.md) |
+| 01 | [RabbitMQ](01-rabbitmq.md) | [Ejemplo](../../ejemplos/03-rabbitmq/README.md) · [laboratorio](lab-rabbitmq/README.md) |
+| 02 | [Kafka](02-kafka.md) | [Ejemplo](../../ejemplos/03-kafka/README.md) |
+| 03 | [gRPC](03-grpc.md) | [Ejemplo](../../ejemplos/03-grpc/README.md) |
+| 04 | [WebSockets](04-websockets.md) | [Ejemplo](../../ejemplos/03-websockets/README.md) |
+| 05 | [Consul](05-consul.md) | [Ejemplo](../../ejemplos/03-consul/README.md) · [laboratorio](lab-consul/README.md) |
+| 06 | [Gateway](06-gateway.md) | [Ejemplo](../../ejemplos/03-gateway/README.md) · [laboratorio](lab-gateway/README.md) |
 
-## Laboratorios
-
-| Laboratorio | De qué partes |
-|-------------|----------------|
-| [Eventos](lab-eventos/README.md) | Un `emit` sin oyente |
-| [RabbitMQ](lab-rabbitmq/README.md) | El broker ya está. Tú nombras la cola `trabajos` |
-| [Consul](lab-consul/README.md) | `prefijos` responde y no está en el listín |
-| [Gateway](lab-gateway/README.md) | Agenda y tiempo ya corren. El 8080 solo tiene `/salud` |
-
-→ Empieza por **[EventEmitter](../../ejemplos/03-event-emitter/README.md)**.
+→ Empieza por **[EventEmitter](00-event-emitter.md)**.

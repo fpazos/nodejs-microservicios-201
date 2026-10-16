@@ -1,3 +1,6 @@
+// El mismo objeto `pieza` se sirve por dos contratos en un proceso:
+// GetPieza en el 50051 y GET /piezas/:codigo en el 3001. Un código que
+// no coincide es NOT_FOUND en gRPC y 404 en HTTP. Mira que el dato no cambia.
 import grpc from '@grpc/grpc-js';
 import protoLoader from '@grpc/proto-loader';
 import express from 'express';
@@ -17,6 +20,7 @@ grpcServer.addService(proto.Inventario.service, {
   },
 });
 
+// Sin TLS, igual que el cliente. 0.0.0.0 para aceptar la conexión en esa interfaz.
 await new Promise((resolve, reject) => {
   grpcServer.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), (err) => {
     if (err) reject(err);

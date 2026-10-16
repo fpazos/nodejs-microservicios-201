@@ -5,4 +5,4 @@ rule_files:
 scrape_configs:
   - job_name: avisos
     static_configs:
-      - targets: ["host.docker.internal:3001"]
+      - targets: ["127.0.0.1:3001"]

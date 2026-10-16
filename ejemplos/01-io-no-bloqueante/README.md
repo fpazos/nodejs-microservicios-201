@@ -1,10 +1,68 @@
 # I/O no bloqueante
 
-Un proceso Node atiende `/plazo` (tarda 3 segundos) y `/salud`. Hay dos programas. Solo uno puede usar el puerto 3001.
+El concepto está en [I/O no bloqueante](../../labs/M01-node-en-microservicios/00-io-no-bloqueante.md).
 
-`bloqueante.mjs` espera con un bucle: el hilo no se suelta. `red.mjs` registra la espera con `setTimeout`, que aquí hace de llamada de red todavía no llegada.
+## Dónde poner el foco
 
-## Cómo ejecutarlo
+Los dos programas esperan tres segundos en `/plazo`; la diferencia es si esa espera deja libre el hilo que tiene que responder `/salud`.
+
+## Archivos
+
+| Archivo | Papel |
+|---------|-------|
+| `bloqueante.mjs` | Espera de `/plazo` ocupando el hilo con un bucle |
+| `red.mjs` | Espera de `/plazo` registrada con un temporizador |
+
+## El código
+
+### `bloqueante.mjs`
+
+```js
+// La espera de /plazo ocurre dentro del único hilo. Mientras el bucle
+// no termina, el proceso no vuelve a mirar la cola de peticiones: /salud
+// llega y se queda esperando. Fíjate en el while, no en el texto de la respuesta.
+import { createServer } from 'node:http';
+
+const server = createServer((req, res) => {
+  if (req.url === '/plazo') {
+    const hasta = Date.now() + 3000;
+    // Tres segundos de CPU vacía. El temporizador devolvería el control;
+    // este bucle lo retiene hasta que el reloj pasa de `hasta`.
+    while (Date.now() < hasta) {}
+    res.end('plazo-listo');
+    return;
+  }
+  res.end('ok');
+});
+
+server.listen(3001, () => console.log('bloqueante en 3001'));
+```
+
+### `red.mjs`
+
+```js
+// La espera de /plazo queda anotada y el hilo se suelta. /salud puede
+// responder mientras el plazo sigue abierto. El temporizador ocupa el
+// lugar de una respuesta de red que todavía no ha llegado.
+import { createServer } from 'node:http';
+
+const server = createServer((req, res) => {
+  if (req.url === '/plazo') {
+    // Al registrar el plazo la función vuelve enseguida. La respuesta
+    // se cierra tres segundos después, en otro turno del bucle.
+    setTimeout(() => res.end('plazo-listo'), 3000);
+    // Sin este return, la misma petición también escribiría `ok`.
+    return;
+  }
+  res.end('ok');
+});
+
+server.listen(3001, () => console.log('red en 3001'));
+```
+
+## Qué hacer
+
+Solo uno de los dos puede usar el puerto 3001. Primero el bucle:
 
 ```bash
 cd ejemplos/01-io-no-bloqueante
@@ -21,8 +79,14 @@ wait
 
 Para el proceso (Ctrl+C) y repite con `node red.mjs` y los mismos `curl`.
 
-## Qué se ve
+## Qué observar
 
-Con el bucle, `/salud` tarda lo mismo que `/plazo`. Con el temporizador, `/salud` responde `ok` al momento y `plazo-listo` llega unos 3 segundos después.
+Con el bucle, la línea de `salud` tarda cerca de 3 segundos, igual que `plazo`: el `while` retiene el hilo y `/salud` espera aunque la petición ya haya llegado. Con el temporizador, `salud` imprime `ok` al momento y `plazo-listo` llega unos 3 segundos después, porque `setTimeout` anota el plazo y devuelve el control.
 
-Este ejemplo no tiene laboratorio. El módulo 1 se mira y se contrasta con el ejemplo de CPU.
+## Qué validar
+
+Con `bloqueante.mjs`, los dos cuerpos son `plazo-listo` y `ok`, y las dos líneas de tiempo rondan los 3s. Con `red.mjs`, `salud` sale enseguida con `ok` y `plazo` sale después con `plazo-listo`.
+
+![plazo con el bucle](../img/01-io-bloqueante.png)
+
+![plazo con el temporizador](../img/01-io-red.png)

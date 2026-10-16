@@ -1,3 +1,5 @@
+// El fichero no es solo el texto cifrado: 12 bytes de IV, 16 de etiqueta
+// y el resto el mensaje. Esos cortes tienen que coincidir con el alta.
 import { createDecipheriv } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 

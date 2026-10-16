@@ -21,27 +21,42 @@ node cliente.mjs
 
 `/codigo` devuelve `{"codigo":"+34"}`. El cliente imprime `directo`. En la UI de Consul no hay servicio `prefijos`.
 
-### 1 — Regístrate al arrancar
+### 1 — Crea `prefijos/registro.mjs` y llámalo al escuchar
 
-**Acción:** dentro del callback de `listen` en `prefijos/server.mjs`, después del `console.log`:
+**Acción:** crea `prefijos/registro.mjs` con esto.
 
 ```js
-const respuesta = await fetch(`${consul}/v1/agent/service/register`, {
-  method: 'PUT',
-  headers: { 'content-type': 'application/json' },
-  body: JSON.stringify({
-    Name: 'prefijos',
-    ID: 'prefijos-1',
-    Address: '127.0.0.1',
-    Port: 3001,
-    Check: { HTTP: 'http://prefijos:3001/salud', Interval: '5s' },
-  }),
-});
-if (!respuesta.ok) throw new Error(`registro ${respuesta.status}`);
-console.log('registrado');
+export async function registrar(consul) {
+  const respuesta = await fetch(`${consul}/v1/agent/service/register`, {
+    method: 'PUT',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      Name: 'prefijos',
+      ID: 'prefijos-1',
+      Address: '127.0.0.1',
+      Port: 3001,
+      Check: { HTTP: 'http://prefijos:3001/salud', Interval: '5s' },
+    }),
+  });
+  if (!respuesta.ok) throw new Error(`registro ${respuesta.status}`);
+  console.log('registrado');
+}
 ```
 
-El callback tiene que ser `async`. Reconstruye:
+En `prefijos/server.mjs`, añade el import arriba y sustituye el `listen` por este. El callback pasa a ser `async` para poder usar `await`.
+
+```js
+import { registrar } from './registro.mjs';
+```
+
+```js
+app.listen(3001, '0.0.0.0', async () => {
+  console.log('prefijos en 3001');
+  await registrar(consul);
+});
+```
+
+Reconstruye:
 
 ```bash
 docker compose up --build -d
@@ -77,6 +92,12 @@ node cliente.mjs
 **Por qué:** el cliente ya no nombra el 3001. Si el servicio se moviera de puerto, cambiaría el registro, no este fichero.
 
 **Resultado esperado:** `descubierto 127.0.0.1 3001 { codigo: '+34' }`.
+
+## Así se ve
+
+`node cliente.mjs` usa la dirección que devolvió Consul.
+
+![resultado del laboratorio](resultado.png)
 
 ## Comprueba tu entendimiento
 
