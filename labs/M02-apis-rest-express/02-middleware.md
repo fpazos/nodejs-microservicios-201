@@ -2,9 +2,7 @@
 
 [← Joi](01-joi-y-errores.md) · [Siguiente página →](../M03-comunicacion-entre-servicios/00-event-emitter.md)
 
-Un middleware es una función que ve la petición antes que la ruta, o entre medias. El orden de `app.use` es el orden en que pasan. Cada uno llama a `next()` para soltar la petición, o responde y corta la cadena.
-
-Tres papeles, los que nombra el temario:
+Un middleware es una función que ve la petición antes que la ruta, o entre medias. El orden de `app.use` es el orden en que pasan. Cada uno llama a `next()` para soltar la petición, o responde y corta la cadena. El temario nombra tres papeles, y en el ejemplo cada uno se engancha en un sitio distinto.
 
 | Middleware | Dónde se engancha | Qué hace |
 |------------|-------------------|----------|

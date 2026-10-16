@@ -4,7 +4,7 @@ El concepto está en [Prometheus y Grafana](../../labs/M07-monitorizacion-y-logg
 
 ## Dónde poner el foco
 
-`/metrics` expone el contador `avisos_total`. Lo incrementa el POST `/avisos`; Prometheus no guarda el aviso, lo rasca cada 5 segundos. Prometheus va en la red del host y rasca `127.0.0.1:3001`, el mismo sitio donde escucha el proceso. Grafana lee a Prometheus. La regla `AvisosSinRaspado` se dispara cuando `up` del job `avisos` lleva 15 segundos en 0.
+El proceso cuenta los avisos y los publica en `/metrics`. Prometheus no recibe un envío: cada 5 segundos rasca esa ruta en `127.0.0.1:3001`, porque comparte la red del host con el proceso. Grafana lee la serie `avisos_total` en Prometheus. La regla `AvisosSinRaspado` no mira el contador: se dispara cuando `up` del job `avisos` lleva 15 segundos en 0, es decir, cuando Prometheus ha dejado de poder rascar el proceso.
 
 ## Archivos
 
@@ -117,7 +117,7 @@ until curl -s http://127.0.0.1:9090/api/v1/alerts | grep -q AvisosSinRaspado; do
 
 ## Qué observar
 
-La query devuelve el valor `1`. Tras parar el proceso, la API de alertas nombra `AvisosSinRaspado`.
+La query devuelve el valor `1`, el del POST que Prometheus leyó en `/metrics`. Tras parar el proceso, la API de alertas nombra `AvisosSinRaspado`: ha pasado el tiempo en el que ya no puede rascar el job.
 
 ## Qué validar
 

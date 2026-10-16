@@ -2,11 +2,7 @@
 
 [← Helm](../M06-docker-y-kubernetes/03-helm-y-replicas.md) · [Siguiente página →](01-jaeger.md)
 
-La métrica es un número que alguien viene a buscar. El proceso expone `GET /metrics`. Prometheus lo rasca cada 5 segundos, en el job `avisos`, contra `host.docker.internal:3001`. No hace falta que el proceso empuje nada.
-
-`avisos_total` es un contador. Cada POST a `/avisos` lo incrementa. Grafana lee a Prometheus y dibuja esa serie. Usuario `admin`, clave `lab-grafana`, puerto 3000.
-
-La alerta `AvisosSinRaspado` no mira el contador. Mira `up == 0` durante 15 segundos: Prometheus dejó de poder rascar el proceso. Parar el servidor dispara la alerta. Un contador que no sube es otra pregunta.
+La métrica es un número que alguien viene a buscar. El proceso expone `GET /metrics` y Prometheus lo rasca cada 5 segundos, en el job `avisos`, contra `127.0.0.1:3001`: comparte la red del host con el proceso, así que no hace falta que el proceso le empuje nada. `avisos_total` sube con cada POST a `/avisos`, y Grafana dibuja esa serie en el puerto 3000, con el usuario `admin` y la clave `lab-grafana`. La alerta `AvisosSinRaspado` no mira el contador. Mira `up == 0` durante 15 segundos, que es el tiempo en el que Prometheus ha dejado de poder rascar el proceso. Parar el servidor dispara la alerta. Un contador que no sube es otra pregunta.
 
 El laboratorio de este módulo es el contador. La gráfica y la alerta se ven en el ejemplo.
 

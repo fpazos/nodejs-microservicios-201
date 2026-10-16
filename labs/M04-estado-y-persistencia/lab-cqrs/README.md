@@ -1,6 +1,6 @@
 # Laboratorio: el GET no lee la tabla
 
-El ejemplo de CQRS ya separa la comanda. Aquí el POST guarda el turno en PostgreSQL y el GET lee esa misma tabla: por eso el GET inmediato ya ve `T-1`. Redis está conectado y no se usa.
+El ejemplo de CQRS ya separa la escritura de la lectura. Aquí el POST guarda el turno en PostgreSQL y el GET lee esa misma tabla, por eso el GET inmediato ya ve `T-1`. Redis está conectado y no se usa. El trabajo es que la consulta lea la copia, y que durante un segundo y medio esa copia todavía no esté.
 
 ### Objetivo
 

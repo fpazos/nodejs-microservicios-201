@@ -4,7 +4,7 @@ El concepto está en [Joi y códigos de error](../../labs/M02-apis-rest-express/
 
 ## Dónde poner el foco
 
-Joi rechaza el cuerpo antes de guardarlo, y el middleware de cuatro argumentos traduce ese fallo y la excepción de `/romper` a un código HTTP.
+Antes de guardar el contacto, Joi comprueba el cuerpo. Si no cumple el esquema, la petición se rechaza con 400 y el contacto no entra. Si la ruta lanza, el middleware de cuatro argumentos convierte esa excepción en un 500 y el proceso sigue escuchando.
 
 ## Archivos
 

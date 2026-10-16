@@ -4,7 +4,7 @@ El concepto está en [RabbitMQ](../../labs/M03-comunicacion-entre-servicios/01-r
 
 ## Dónde poner el foco
 
-El aviso entra en la cola `avisos` y espera ahí si el consumidor no está; el `ack` es lo que permite quitarlo.
+El publicador deja el aviso en la cola `avisos` y puede terminar. Si el consumidor no está, el mensaje espera ahí. Cuando lo lee, el `ack` es lo que le dice al broker que ya puede quitarlo.
 
 ## Archivos
 

@@ -4,7 +4,7 @@ El concepto está en [Helm y réplicas](../../labs/M06-docker-y-kubernetes/03-he
 
 ## Dónde poner el foco
 
-El chart instala el mismo `eco` del ejemplo de Kubernetes. `replicaCount` sale de `values.yaml` y el Deployment nace con 2. El HPA declara un mínimo de 2 y un máximo de 4 sobre el Deployment `eco`. En kind, sin metrics-server, el objetivo de CPU se queda en `<unknown>`: el objeto existe y no mueve réplicas. El reparto se ve al subir réplicas a mano y preguntar el Service `eco` desde dentro del clúster. El selector `app: eco` es el mismo en Deployment y Service.
+El chart instala el mismo `eco` del ejemplo de Kubernetes. `replicaCount` sale de `values.yaml`, así que el Deployment nace con 2. El HPA declara un mínimo de 2 y un máximo de 4, pero en kind, sin metrics-server, el objetivo de CPU se queda en `<unknown>` y no mueve réplicas: el objeto existe, y la tercera réplica sale de un `kubectl scale`. Al preguntar el Service `eco` desde dentro del clúster se ven varios Pods, porque el selector `app: eco` es el mismo en el Deployment y en el Service.
 
 Reutiliza la imagen `ms-eco:lab` y el clúster `ms` del ejemplo de Kubernetes. Si no los tienes, los comandos están en [Qué hacer](#qué-hacer).
 
@@ -119,7 +119,7 @@ kubectl run cliente --rm -i --restart=Never --image=curlimages/curl -- \
 
 ## Qué observar
 
-Dos Pods tras el install. El HPA `eco` con MINPODS 2. Tras el scale, tres Pods. En las seis líneas, al menos dos valores distintos de `pod`.
+Tras el install hay dos Pods y el HPA `eco` declara un mínimo de 2. El scale deja tres. En las seis líneas aparecen al menos dos valores distintos de `pod`, porque el Service reparte entre los Pods con `app: eco`.
 
 ## Qué validar
 

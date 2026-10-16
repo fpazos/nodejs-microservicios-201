@@ -1,6 +1,6 @@
 # Laboratorio: la segunda lectura no toca Mongo
 
-El ejemplo de caché ya distingue `mongo` y `redis` con fichas. Aquí cada GET de `p1` escribe `mongo` en el log. Redis está levantado y el cliente creado; no se usa.
+El ejemplo de caché ya distingue una lectura que sale de Mongo de otra que sale de Redis. Aquí cada GET de `p1` escribe `mongo` en el log, aunque Redis esté levantado y el cliente creado. El trabajo es hacer que la segunda lectura salga de la copia.
 
 ### Objetivo
 

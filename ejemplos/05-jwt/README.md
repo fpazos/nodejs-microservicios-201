@@ -4,7 +4,7 @@ El concepto está en [JWT y roles](../../labs/M05-seguridad-y-autenticacion/00-j
 
 ## Dónde poner el foco
 
-`eva` es `editor` y puede cambiar el título. `leo` es `lector`: el token es válido y el PUT responde 403. Sin token, el GET responde 401. Las dos cuentas usan la clave `lab`; lo que cambia es el rol firmado dentro del token. El secreto de este ejemplo es `secreto-articulos`. El payload se puede leer sin esa clave; `verify` solo acepta una firma hecha con ella.
+`eva` es editor y puede cambiar el título. `leo` es lector: su token es válido, y aun así el PUT responde 403 porque el rol no alcanza. Sin token, el GET responde 401. Las dos cuentas usan la clave `lab`; lo que cambia es el rol firmado dentro del token. El payload se puede leer sin el secreto; `verify` solo acepta una firma hecha con `secreto-articulos`.
 
 ## Archivos
 
@@ -93,7 +93,7 @@ curl -s -w '\n%{http_code}\n' http://127.0.0.1:3001/articulos/a1
 
 ## Qué observar
 
-200 y `titulo` `publicado`. Luego 403. Luego 401.
+El PUT de `eva` responde 200 y deja el `titulo` en `publicado`. El de `leo` responde 403, con un token válido cuyo rol no alcanza. El GET sin cabecera responde 401, porque no hay identidad.
 
 ## Qué validar
 

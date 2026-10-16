@@ -4,7 +4,7 @@ El concepto está en [Kafka](../../labs/M03-comunicacion-entre-servicios/02-kafk
 
 ## Dónde poner el foco
 
-El aviso queda en el topic `avisos`; el grupo `lectores` guarda hasta dónde ha leído, y leer no borra el mensaje.
+El aviso se publica en el topic `avisos` y leerlo no lo borra. El grupo `lectores` recuerda hasta dónde ha leído, así que al rearrancar no vuelve a imprimir lo que ya consumió. Otro grupo parte de su propio sitio y puede leer el mismo topic otra vez.
 
 ## Archivos
 

@@ -2,7 +2,7 @@
 
 [← M03](../M03-comunicacion-entre-servicios/README.md) · [Siguiente página →](00-mongoose.md)
 
-Cada dato tiene un sitio. La lectura caliente y la consulta no tienen por qué usar el mismo sitio que la escritura.
+Cada dato tiene un sitio, y ese sitio no tiene por qué ser el mismo para escribir y para leer. La lectura caliente puede salir de una copia, y la consulta puede mirar otro modelo que la escritura.
 
 | Dato | Motor | Página |
 |------|-------|--------|

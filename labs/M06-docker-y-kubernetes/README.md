@@ -2,9 +2,7 @@
 
 [← M05](../M05-seguridad-y-autenticacion/README.md) · [Siguiente página →](00-dockerfile.md)
 
-Hasta aquí Compose levantaba brokers y bases. Este módulo abre la imagen, el Compose como tema, el clúster y Helm.
-
-Dentro del contenedor el proceso escucha en `0.0.0.0`. En `127.0.0.1` el puerto publicado no le entrega tráfico.
+Hasta aquí Compose levantaba brokers y bases sin que abriéramos la imagen. Este módulo mira qué hay dentro de esa imagen, cómo Compose les pone nombre en una red, y cómo el mismo proceso pasa a un clúster con Kubernetes y Helm. Dentro del contenedor el proceso escucha en `0.0.0.0`, porque en `127.0.0.1` el puerto publicado en el host no le entrega tráfico.
 
 ## Páginas
 

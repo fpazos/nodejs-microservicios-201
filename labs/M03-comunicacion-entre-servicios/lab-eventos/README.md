@@ -1,6 +1,6 @@
 # Laboratorio: el evento no sale del proceso
 
-El ejemplo de EventEmitter ya escucha y emite en el mismo fichero. Aquí `emisor.mjs` dispara `sensor` y nadie escucha. Tú creas el oyente y lo enganchas con dos líneas. `oyente.mjs` es otro proceso.
+El ejemplo de EventEmitter ya escucha y emite en el mismo fichero, así que el aviso se ve. Aquí `emisor.mjs` dispara `sensor` y nadie escucha. Tú creas el oyente y lo enganchas con dos líneas. `oyente.mjs` es otro proceso, y sirve para comprobar que el mismo nombre, en otro objeto, no se entera.
 
 ### Objetivo
 

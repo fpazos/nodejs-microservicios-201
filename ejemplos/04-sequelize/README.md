@@ -4,7 +4,7 @@ El concepto está en [PostgreSQL y Sequelize](../../labs/M04-estado-y-persistenc
 
 ## Dónde poner el foco
 
-La butaca `A1` es una fila de la tabla `butacas`. `sync` crea esa tabla en este ejemplo de un solo nodo, y solo lo llama el alta. `lectura` abre la misma base, busca la clave `A1` y no escribe. El objeto impreso es `{ id, fila }` porque el modelo apaga los timestamps.
+La butaca `A1` es una fila de la tabla `butacas`. El alta crea la tabla en este ejemplo y escribe la fila. La lectura abre la misma base, busca `A1` y no escribe: el objeto que imprime sale de PostgreSQL.
 
 ## Archivos
 
@@ -72,7 +72,7 @@ npm run lectura
 
 ## Qué observar
 
-`{ id: 'A1', fila: 'A' }` dos veces.
+El alta y la lectura imprimen `{ id: 'A1', fila: 'A' }`. La segunda vez el objeto sale de la tabla, no de una variable que el alta hubiera dejado en memoria.
 
 ## Qué validar
 

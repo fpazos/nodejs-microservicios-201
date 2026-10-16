@@ -1,6 +1,6 @@
 # Laboratorio: un contador que Prometheus pueda rascar
 
-El ejemplo de Prometheus ya trae `/metrics`, Grafana y una alerta. Aquí el POST suma una variable y no hay `/metrics`. El compose de Prometheus ya apunta a tu puerto 3001. Jaeger y los logs se miran en sus ejemplos: este laboratorio es solo la métrica.
+El ejemplo de Prometheus ya expone `/metrics` y deja que Prometheus lo rasque. Aquí el POST solo suma una variable, y esa variable no sale del proceso. El compose ya apunta a tu puerto 3001. El trabajo es publicar un contador `votos_total` que Prometheus pueda leer. Jaeger y los logs se miran en sus ejemplos.
 
 ### Objetivo
 

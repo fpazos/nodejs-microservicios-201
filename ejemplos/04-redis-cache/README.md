@@ -4,7 +4,7 @@ El concepto está en [Redis como caché](../../labs/M04-estado-y-persistencia/02
 
 ## Dónde poner el foco
 
-El primer GET de `F-1` no encuentra `ficha:F-1` en Redis, lee MongoDB y guarda la clave 60 segundos. El segundo GET lee Redis. Con el contenedor de Mongo parado, la clave sigue respondiendo hasta que expire: la caché es una copia, la ficha sigue teniendo su sitio en Mongo.
+El primer GET de `F-1` no encuentra la clave en Redis, lee la ficha en MongoDB y la guarda 60 segundos. El segundo GET ya sale de Redis. Si se para Mongo, la clave sigue respondiendo hasta que caduque, porque la caché es una copia y la ficha sigue teniendo su sitio en Mongo.
 
 ## Archivos
 

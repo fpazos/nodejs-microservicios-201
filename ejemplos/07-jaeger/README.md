@@ -4,7 +4,7 @@ El concepto está en [Jaeger](../../labs/M07-monitorizacion-y-logging/01-jaeger.
 
 ## Dónde poner el foco
 
-Una petición concreta, no un contador. El SDK se carga con `--import` antes de Express: el script `start` es `node --import ./instrumentacion.mjs server.mjs`. Si arrancara después, el GET podría no quedar en un trazo. El exportador envía OTLP HTTP al puerto 4318. La UI de Jaeger es el 16686. `OTEL_SERVICE_NAME=piezas` es el nombre que aparece en la lista de servicios. `OTEL_BSP_SCHEDULE_DELAY=500` acorta la espera del lote para que el trazo salga antes del `sleep 1`.
+Aquí no se cuenta cuántas peticiones hubo: se guarda el recorrido de una. El SDK se carga con `--import` antes de Express, así que el GET queda dentro de un trazo, y el exportador lo envía por OTLP al puerto 4318. Jaeger lo enseña con el nombre `piezas`. `OTEL_BSP_SCHEDULE_DELAY=500` acorta la espera del lote para que el trazo aparezca sin quedarse mirando la UI vacía.
 
 ## Archivos
 
@@ -70,7 +70,7 @@ UI: http://127.0.0.1:16686 servicio `piezas`, Find Traces.
 
 ## Qué observar
 
-`/api/services` incluye `piezas`. El trazo nombra el GET `/piezas/PZ-1`. Otro GET crea otro trazo.
+`/api/services` incluye `piezas`, que es el nombre con el que el proceso se presentó a Jaeger. El trazo nombra el GET `/piezas/PZ-1`, y otro GET crea otro trazo: cada petición tiene el suyo.
 
 ## Qué validar
 

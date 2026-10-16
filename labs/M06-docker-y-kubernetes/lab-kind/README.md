@@ -1,8 +1,6 @@
 # Laboratorio: el Service no encuentra los Pods
 
-El ejemplo de Kubernetes ya aplica un manifiesto que funciona, con volumen incluido. Aquí la imagen y el Deployment están bien. El Service selecciona `app: eco-mal` y los Pods llevan `app: eco`. kind usa el clúster `ms`.
-
-Hasta este módulo, Compose se arrancaba sin mirar el clúster. Esta es la práctica con kind.
+El ejemplo de Kubernetes ya aplica un manifiesto que funciona, con volumen incluido. Aquí la imagen y el Deployment están bien, pero el Service selecciona `app: eco-mal` y los Pods llevan `app: eco`, así que el Service no encuentra a nadie. kind usa el clúster `ms`. Hasta este módulo, Compose se arrancaba sin mirar el clúster. Esta es la práctica con kind.
 
 ### Objetivo
 

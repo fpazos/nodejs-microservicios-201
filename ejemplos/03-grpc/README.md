@@ -4,7 +4,7 @@ El concepto está en [gRPC y REST](../../labs/M03-comunicacion-entre-servicios/0
 
 ## Dónde poner el foco
 
-`GetPieza` sale del fichero `pieza.proto` por el puerto 50051, y el mismo dato sale por GET `/piezas/PZ-1` en el 3001.
+`GetPieza` está declarado en `pieza.proto` y se llama por el puerto 50051. El mismo dato, la pieza `PZ-1`, también sale por GET `/piezas/PZ-1` en el 3001. Los dos responden lo mismo; cambia el contrato con el que se pide.
 
 ## Archivos
 

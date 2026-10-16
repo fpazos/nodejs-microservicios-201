@@ -2,11 +2,9 @@
 
 [← Sequelize](01-sequelize.md) · [Siguiente página →](03-cqrs.md)
 
-Redis guarda la copia que se va a volver a pedir. La ficha `F-1` vive en MongoDB. El primer GET no la encuentra en Redis, la lee de Mongo, y la guarda con la clave `ficha:F-1` y caducidad de 60 segundos. El segundo GET lee Redis. En el log se ve `mongo` y después `redis`.
+Redis guarda la copia de lo que se va a volver a pedir, no el dato original. La ficha `F-1` vive en MongoDB. El primer GET no la encuentra en Redis, la lee de Mongo y la guarda con la clave `ficha:F-1` y una caducidad de 60 segundos. El segundo GET ya sale de Redis, y en el log se ve `mongo` y después `redis`. Parar Mongo no borra la clave, así que el tercer GET sigue respondiendo la ficha mientras no caduque. Esa respuesta sale de la copia. Cuando expire, o cuando Redis se vacíe, la fuente vuelve a ser Mongo. Por eso, en este uso, Redis no es de donde se recupera el dato si se pierde la memoria.
 
-Parar Mongo no borra la clave. El tercer GET sigue respondiendo la ficha mientras no caduque. Esa respuesta sale de la copia. Cuando expire, o cuando Redis se vacíe, la fuente vuelve a ser Mongo. Por eso Redis, en este uso, no es de donde se recupera el dato si se pierde la memoria.
-
-La clave lleva prefijo y caducidad a propósito. Sin caducidad, un cambio en Mongo puede quedar invisible. Sin prefijo, las claves de otro uso se pisan.
+La clave lleva prefijo y caducidad a propósito: sin caducidad, un cambio en Mongo puede quedar invisible, y sin prefijo las claves de otro uso se pisan.
 
 ## Ejemplo
 

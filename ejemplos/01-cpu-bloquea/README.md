@@ -4,7 +4,7 @@ El concepto está en [CPU y otros runtimes](../../labs/M01-node-en-microservicio
 
 ## Dónde poner el foco
 
-`/informe` calcula un Fibonacci en el mismo hilo que `/salud`, y el handler `async` no cambia eso porque no hay ningún `await`.
+`/informe` calcula un Fibonacci en el mismo hilo que atiende `/salud`. La ruta es `async`, pero dentro no hay ningún `await`, así que el hilo no se suelta y `/salud` espera a que el cálculo termine.
 
 ## Archivos
 

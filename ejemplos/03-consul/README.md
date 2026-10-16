@@ -4,7 +4,7 @@ El concepto está en [Consul](../../labs/M03-comunicacion-entre-servicios/05-con
 
 ## Dónde poner el foco
 
-`reloj` no publica su puerto en el host: se registra en Consul y el cliente llama a la dirección que Consul marca como sana.
+`reloj` no publica su puerto en el host. Al arrancar se registra en Consul, y el cliente pregunta quién está sano con ese nombre y llama a la dirección que le devuelven.
 
 ## Archivos
 

@@ -2,7 +2,7 @@
 
 [← OAuth](01-oauth.md) · [Siguiente página →](../M06-docker-y-kubernetes/00-dockerfile.md)
 
-Tres cifras distintas, para tres cosas distintas.
+Cifrar no es una sola operación. La contraseña no debe poder recuperarse, un campo como la dirección sí, y el canal entre el cliente y el proceso no debe ir en claro. Cada una usa una herramienta distinta.
 
 **La contraseña.** bcrypt guarda un hash. `clave-de-eva` produce una cadena que empieza por `$2`. Comprobar es volver a hashear y comparar. No hay operación inversa: del hash no sale la clave. Otra clave da `false`.
 

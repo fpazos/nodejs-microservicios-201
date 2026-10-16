@@ -2,11 +2,9 @@
 
 [← Rutas](00-rutas-http.md) · [Siguiente página →](02-middleware.md)
 
-Un cuerpo que no cumple el contrato no se guarda. Joi describe el cuerpo antes de la ruta: `email` tiene que ser un correo, `edad` un entero entre 0 y 120. Con `convert: false`, la cadena `"30"` no se convierte en número: si el cliente mandó un texto, el esquema lo rechaza.
+El cliente puede mandar el JSON que quiera. Antes de guardarlo, la ruta necesita un esquema que diga qué forma tiene un contacto válido. Joi es ese control de esquema: describes el cuerpo (`email` como correo, `edad` como entero entre 0 y 120) y, al llegar el POST, Joi lo compara. Si no cuadra, la ruta no lo ve y la respuesta es 400 con el mensaje de Joi. El servicio queda como estaba. Con `convert: false`, la cadena `"30"` no se convierte en número, así que un texto donde pedías un entero también se rechaza.
 
-El fallo de validación es un 400. El mensaje es el de Joi. Un 400 dice que la petición está mal formada. El servicio sigue igual que antes de recibirla.
-
-Un fallo que la ruta no esperaba es un 500. Express 5 entrega la excepción de una ruta `async` al middleware de cuatro argumentos `(err, req, res, next)`. Ese middleware escribe el 500 y el proceso sigue en marcha. Sin él, la excepción se queda sin respuesta HTTP.
+Si el cuerpo entra, la ruta responde 201. Si la ruta lanza algo que no tenía previsto, Express 5 entrega esa excepción a un middleware de cuatro argumentos, `(err, req, res, next)`, y ese middleware responde 500. El proceso sigue escuchando. Sin él, la excepción se queda sin respuesta HTTP.
 
 | Situación | Código | Quién lo decide |
 |-----------|--------|-----------------|

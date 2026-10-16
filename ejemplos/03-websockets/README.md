@@ -4,7 +4,7 @@ El concepto está en [WebSockets](../../labs/M03-comunicacion-entre-servicios/04
 
 ## Dónde poner el foco
 
-El canal queda abierto: el servidor escribe al conectar y vuelve a escribir cuando el cliente manda un texto, sin un GET nuevo.
+La conexión queda abierta. Al conectar, el servidor escribe `hola`, y cuando el cliente manda un texto lo devuelve por el mismo canal, sin que haga falta un GET nuevo.
 
 ## Archivos
 

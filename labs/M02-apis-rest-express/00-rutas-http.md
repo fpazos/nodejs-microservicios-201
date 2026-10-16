@@ -2,9 +2,7 @@
 
 [← CPU](../M01-node-en-microservicios/01-cpu-y-otros-runtimes.md) · [Siguiente página →](01-joi-y-errores.md)
 
-Express une tres cosas: un verbo, un camino y una función. Esa función es el controlador del recurso. Recibe la petición y escribe la respuesta. En Express 5, si la función es `async` y lanza, el error llega al middleware de errores. En este ejemplo todavía no hay ese middleware: el cuerpo se guarda tal cual.
-
-El recurso de la demostración es una nota en memoria. El `id` va en el camino. El texto va en el JSON.
+Express recibe la petición y tiene que decidir qué función la atiende. Esa función, el controlador, se elige con el verbo y el camino: juntos dicen si se lista, se lee, se crea, se cambia o se borra. En este ejemplo el recurso es una nota en memoria, el `id` va en el camino y el texto en el JSON. Todavía no hay middleware de errores, así que la ruta guarda el cuerpo tal cual cuando termina bien.
 
 | Verbo | Camino | Qué hace | Código cuando sale bien |
 |-------|--------|----------|--------------------------|

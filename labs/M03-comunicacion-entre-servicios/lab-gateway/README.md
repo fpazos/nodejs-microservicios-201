@@ -1,6 +1,6 @@
 # Laboratorio: un solo puerto
 
-El ejemplo de gateway ya enruta clima y cotizaciones. Aquí `agenda` y `tiempo` están levantados y no publican puerto. El gateway escucha en el 8080 y solo responde `/salud`. El fichero `gateway/server.mjs` está montado en el contenedor: al guardarlo, `node --watch` reinicia.
+El ejemplo de gateway ya enruta clima y cotizaciones por un solo puerto. Aquí `agenda` y `tiempo` están levantados y no publican el suyo. El gateway escucha en el 8080 y solo responde `/salud`. El fichero `gateway/server.mjs` está montado en el contenedor, así que al guardarlo `node --watch` reinicia y puedes añadir las rutas sin reconstruir la imagen.
 
 ### Objetivo
 

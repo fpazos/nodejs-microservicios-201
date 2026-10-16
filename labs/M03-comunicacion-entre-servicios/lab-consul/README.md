@@ -1,8 +1,6 @@
 # Laboratorio: descubrir prefijos en Consul
 
-El ejemplo de Consul ya registra `reloj` y el cliente no conoce el puerto. Aquí `prefijos` responde en el 3001 y no se registra. `cliente.mjs` llama a ese puerto escrito a mano.
-
-La UI de Consul es http://127.0.0.1:8500. El check de salud usa el nombre Docker `prefijos`. La dirección que ve tu terminal es `127.0.0.1`, porque el puerto está publicado en el host.
+El ejemplo de Consul ya registra `reloj`, y el cliente llama a la dirección que el listín le devuelve. Aquí `prefijos` responde en el 3001 y no se registra, así que `cliente.mjs` tiene el puerto escrito a mano. La UI de Consul es http://127.0.0.1:8500. El check de salud usa el nombre Docker `prefijos`, y la dirección que ve tu terminal es `127.0.0.1` porque el puerto está publicado en el host.
 
 ### Objetivo
 

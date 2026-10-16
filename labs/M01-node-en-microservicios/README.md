@@ -2,7 +2,7 @@
 
 [← Inicio](../../README.md) · [Siguiente página →](00-io-no-bloqueante.md)
 
-Node atiende muchas conexiones mientras espera a la red. Un cálculo en el mismo hilo deja de atender. Este módulo no tiene laboratorio: las dos páginas se explican y se demuestran.
+Node atiende muchas conexiones mientras espera a la red, porque esa espera devuelve el hilo. Un cálculo en el mismo hilo no espera a nadie y, mientras dura, el proceso deja de atender. Este módulo no tiene laboratorio: las dos páginas se explican y se demuestran.
 
 ## Qué aprenderás
 

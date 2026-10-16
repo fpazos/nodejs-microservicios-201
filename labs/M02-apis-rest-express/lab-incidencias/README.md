@@ -1,6 +1,6 @@
 # Laboratorio: la API de incidencias
 
-El ejemplo de rutas usa notas y no valida nada. Aquí dejas una API de incidencias. El servidor ya responde `/salud`. Tú creas dos ficheros y añades tres líneas para engancharlos.
+El ejemplo de rutas guarda notas sin mirar el cuerpo. Aquí el recurso es una incidencia: el servidor de partida solo responde `/salud`, y tú creas el esquema y las rutas y los enganchas con tres líneas.
 
 ### Objetivo
 

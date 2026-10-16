@@ -4,7 +4,7 @@ El concepto está en [Rutas y verbos HTTP](../../labs/M02-apis-rest-express/00-r
 
 ## Dónde poner el foco
 
-Cada verbo hace una cosa distinta con la misma nota, y el código HTTP dice si se creó, si se sustituyó o si el id ya no está.
+La misma nota pasa por alta, lectura, cambio y borrado. Cada verbo hace una de esas cosas, y el código HTTP dice si se creó, si se sustituyó o si el id ya no está.
 
 ## Archivos
 

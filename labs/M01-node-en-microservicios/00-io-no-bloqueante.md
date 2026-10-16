@@ -2,11 +2,7 @@
 
 [← Módulo](README.md) · [Siguiente página →](01-cpu-y-otros-runtimes.md)
 
-Un microservicio pasa casi todo el tiempo esperando: a la base, a otro servicio, al cliente. Node atiende esa espera con un solo hilo. La petición que aún no tiene respuesta no ocupa el hilo. El proceso puede aceptar la siguiente.
-
-Eso vale mientras la espera sea de red o de reloj. El sistema operativo avisa cuando el dato llega, y el bucle de Node retoma esa petición. Mientras tanto atiende otras.
-
-Si la espera se escribe como un bucle que no suelta el hilo, el proceso deja de atender. `async` no cambia eso: sin un punto en el que la función devuelva el control, el bucle sigue dentro de la misma llamada.
+Un microservicio pasa casi todo el tiempo esperando: a la base, a otro servicio, al cliente. Node ejecuta el JavaScript en un solo hilo y, aun así, puede llevar varias de esas esperas a la vez. Cuando una petición se queda a la espera de la red, devuelve el control; el sistema operativo avisará al llegar el dato, y mientras tanto el mismo hilo acepta la siguiente. Si la espera se escribe como un bucle que no devuelve el control, el proceso deja de atender. Marcar la función como `async` no lo evita: sin un punto en el que suelte el hilo, el bucle sigue dentro de la misma llamada.
 
 ## Qué se mira
 

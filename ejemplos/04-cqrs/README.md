@@ -4,7 +4,7 @@ El concepto está en [Consistencia eventual y CQRS](../../labs/M04-estado-y-pers
 
 ## Dónde poner el foco
 
-El POST escribe la fila en PostgreSQL y responde 201 sin esperar. El GET no mira esa tabla: lee Redis. La copia a Redis ocurre 1,5 segundos después. En ese hueco el GET responde 404 aunque la fila ya exista. Pasado el plazo, el mismo GET responde 200.
+El POST escribe la fila en PostgreSQL y responde 201 sin esperar a la copia. El GET no mira esa tabla: lee Redis, y la copia llega 1,5 segundos después. En ese hueco el GET responde 404 aunque la fila ya exista. Pasado el plazo, el mismo GET responde 200.
 
 ## Archivos
 
@@ -81,7 +81,7 @@ docker exec ms-pg-comandas psql -U postgres -d comandas -c 'select id, plato fro
 
 ## Qué observar
 
-201, luego 404 `aun no proyectado`, luego 200 con `plato` `sopa`.
+El POST responde 201 en cuanto la fila existe. El GET inmediato responde 404 `aun no proyectado`, porque todavía no ha pasado el segundo y medio y la consulta lee Redis, no la tabla. Tras esos dos segundos el mismo GET responde 200 con `plato` `sopa`.
 
 ## Qué validar
 

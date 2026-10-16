@@ -2,7 +2,7 @@
 
 [← M06](../M06-docker-y-kubernetes/README.md) · [Siguiente página →](00-prometheus.md)
 
-Tres preguntas distintas. La métrica dice cuánto. El trazo dice por dónde pasó esta petición. El log es la frase que el proceso escribió.
+Observar un servicio es poder contestar tres preguntas distintas. La métrica dice cuánto ha pasado. El trazo dice por dónde fue esta petición. El log es la frase que el proceso escribió al hacerlo.
 
 | Pregunta | Herramienta | Página |
 |----------|-------------|--------|

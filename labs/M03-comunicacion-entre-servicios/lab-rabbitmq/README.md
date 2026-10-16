@@ -1,8 +1,6 @@
 # Laboratorio: la cola guarda el trabajo
 
-El ejemplo de RabbitMQ ya publica en `avisos`. Aquí la cola se llama `trabajos` y el mensaje es `{"tarea":"barrer"}`. El compose ya está. Tú alineas los dos programas y compruebas que el mensaje espera si nadie escucha.
-
-Kafka está en `ejemplos/03-kafka` para ver el otro broker. Este laboratorio es solo RabbitMQ.
+El ejemplo de RabbitMQ ya publica en `avisos` y el consumidor ya sabe ese nombre. Aquí la cola se llama `trabajos` y el mensaje es `{"tarea":"barrer"}`, pero los dos programas todavía no se han puesto de acuerdo. Tú dejas el nombre y el cuerpo en un solo sitio y compruebas que el mensaje espera si nadie escucha. Kafka está en `ejemplos/03-kafka` para ver el otro broker. Este laboratorio es solo RabbitMQ.
 
 ### Objetivo
 

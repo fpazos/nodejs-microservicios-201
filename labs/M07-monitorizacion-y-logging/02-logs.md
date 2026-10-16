@@ -2,11 +2,7 @@
 
 [← Jaeger](01-jaeger.md) · [Inicio](../../README.md)
 
-El log es la frase que el proceso escribió por stdout. No es una métrica y no es un trazo. pino saca una línea JSON, `nota creada`, con el id `n1`. El proceso no conoce Elasticsearch: no hay URL del índice en su entorno.
-
-Fluent Bit lee el log del contenedor, se queda con esa frase y la entrega al índice `notas-logs`. El temario nombra Fluentd. Aquí el recolector es Fluent Bit: el mismo papel, en un solo binario. Kibana lee ese índice. Elasticsearch arranca con la seguridad desactivada, en el puerto 9200. Kibana está en el 5601.
-
-Centralizar es esto: el proceso escribe donde ya escribía, y otro proceso lleva esas líneas a un sitio donde se pueden buscar.
+El log es la frase que el proceso escribió por stdout, otra cosa que la métrica y que el trazo. pino saca una línea JSON, `nota creada`, con el id `n1`, y el proceso no sabe que existe Elasticsearch: no hay URL del índice en su entorno. Fluent Bit lee el log del contenedor, se queda con esa frase y la entrega al índice `notas-logs`. El temario nombra Fluentd; aquí el recolector es Fluent Bit, el mismo papel en un solo binario. Kibana lee ese índice. Elasticsearch arranca con la seguridad desactivada, en el 9200, y Kibana en el 5601. Centralizar es eso: el proceso escribe donde ya escribía, y otro proceso lleva esas líneas a un sitio donde se pueden buscar.
 
 ## Ejemplo
 

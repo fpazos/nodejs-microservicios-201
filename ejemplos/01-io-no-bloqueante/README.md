@@ -4,7 +4,7 @@ El concepto está en [I/O no bloqueante](../../labs/M01-node-en-microservicios/0
 
 ## Dónde poner el foco
 
-Los dos programas esperan tres segundos en `/plazo`; la diferencia es si esa espera deja libre el hilo que tiene que responder `/salud`.
+Los dos programas esperan tres segundos antes de responder `/plazo`. En `bloqueante.mjs` esa espera es un bucle en el hilo, así que `/salud` no puede salir hasta que el bucle acaba. En `red.mjs` la espera es un temporizador, el mismo papel que una respuesta de red que todavía no ha llegado, y `/salud` responde enseguida porque el hilo quedó libre.
 
 ## Archivos
 

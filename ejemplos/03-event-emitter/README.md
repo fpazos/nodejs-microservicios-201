@@ -4,7 +4,7 @@ El concepto está en [EventEmitter](../../labs/M03-comunicacion-entre-servicios/
 
 ## Dónde poner el foco
 
-El aviso `alarma` solo existe en el objeto `bus` de ese proceso; otro `node` con el mismo nombre no comparte el objeto.
+El aviso `alarma` se emite sobre un objeto `bus` que vive en ese proceso, y quien hizo `on` sobre ese mismo objeto lo recibe. Otro proceso, aunque escuche el mismo nombre, tiene otro objeto y no se entera.
 
 ## Archivos
 

@@ -4,7 +4,7 @@ El concepto está en [Gateway](../../labs/M03-comunicacion-entre-servicios/06-ga
 
 ## Dónde poner el foco
 
-Un solo puerto de cara al cliente: `/api/clima/hoy` lo atiende `clima` y `/api/cotizaciones/usd` lo atiende `cotizaciones`.
+El cliente solo habla con el puerto 8080. `/api/clima/hoy` se reenvía a `clima` y `/api/cotizaciones/usd` se reenvía a `cotizaciones`. Esos servicios no publican puerto, así que un `curl` directo a ellos no conecta.
 
 ## Archivos
 

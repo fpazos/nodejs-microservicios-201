@@ -138,10 +138,10 @@ echo
 
 ## Qué observar
 
-`{"sub":"eva","email":"eva@ejemplo.test"}`.
+`/yo` responde `{"sub":"eva","email":"eva@ejemplo.test"}`. Ese `sub` no lo ha escrito el portal: sale de `/userinfo`, llamado con el token que la sesión guardó al volver del proveedor.
 
 ## Qué validar
 
-El `sub` sale de `/userinfo`, llamado con el Bearer guardado en la sesión. Sin la cookie del tarro, `GET /yo` responde 401.
+Sin la cookie del tarro, `GET /yo` responde 401: el portal ya no sabe que ese navegador pasó por el callback.
 
 ![sub de eva](../img/05-oauth.png)

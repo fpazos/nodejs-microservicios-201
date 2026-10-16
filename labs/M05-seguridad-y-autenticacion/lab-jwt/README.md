@@ -1,6 +1,6 @@
 # Laboratorio: quién cambia la receta
 
-El ejemplo de JWT ya separa a la editora y al lector de un artículo. Aquí cualquiera puede leer y cambiar el plato. `jsonwebtoken` está instalado. El secreto es `secreto-recetas`. `noa` es `chef`, `ian` es `comensal`. La clave de los dos es `lab`.
+El ejemplo de JWT ya separa a quien puede cambiar el artículo de quien solo puede leerlo. Aquí cualquiera lee y cambia el plato. `jsonwebtoken` está instalado, el secreto es `secreto-recetas`, `noa` es `chef`, `ian` es `comensal` y la clave de los dos es `lab`. El trabajo es que el rol lo firme el servidor y que el PUT solo deje pasar al chef.
 
 ### Objetivo
 

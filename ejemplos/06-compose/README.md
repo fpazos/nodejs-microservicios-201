@@ -68,7 +68,7 @@ curl -s http://127.0.0.1:3001/visitas; echo
 
 ## Qué observar
 
-`visitas` 1 y luego 2.
+El primer `curl` devuelve `visitas` 1 y el segundo 2. El número ha subido porque vive en Redis, no en la memoria del proceso.
 
 ## Qué validar
 

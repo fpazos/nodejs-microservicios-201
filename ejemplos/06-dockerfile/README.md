@@ -59,7 +59,7 @@ echo
 
 ## Qué observar
 
-`{"mensaje":"hola","host":"..."}`. `docker exec ms-hola ps` muestra `node server.mjs`.
+`GET /hola` responde `{"mensaje":"hola","host":"..."}`. El `host` es el del contenedor, no `local`, porque lo rellenó el runtime. `docker exec ms-hola ps` muestra `node server.mjs`, que es el `CMD` de la imagen.
 
 ## Qué validar
 

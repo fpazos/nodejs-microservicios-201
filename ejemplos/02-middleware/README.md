@@ -4,7 +4,7 @@ El concepto está en [Middleware](../../labs/M02-apis-rest-express/02-middleware
 
 ## Dónde poner el foco
 
-El registro y la compresión valen para todas las rutas; la clave `x-api-key` solo protege `/informes`.
+Toda petición pasa por el registro y por la compresión. La clave `x-api-key` solo se exige en `/informes`, de modo que `/salud` responde sin credencial y sigue sirviendo para saber si el proceso está arriba.
 
 ## Archivos
 

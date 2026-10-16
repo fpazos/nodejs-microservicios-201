@@ -4,7 +4,7 @@ El concepto está en [Logs](../../labs/M07-monitorizacion-y-logging/02-logs.md).
 
 ## Dónde poner el foco
 
-El proceso escribe JSON por stdout con pino. No conoce Elasticsearch. Fluent Bit lee el log del contenedor, se queda con las líneas que traen `nota creada` y las entrega al índice `notas-logs`. El id `n1` va en el objeto para poder buscarlo. El temario nombra Fluentd: aquí el recolector es Fluent Bit, el mismo papel en un solo binario. Elasticsearch arranca sin autenticación. Sirve para este ejemplo.
+El proceso escribe JSON por stdout con pino y ahí termina su trabajo: no conoce Elasticsearch. Fluent Bit lee el log del contenedor, se queda con las líneas que traen `nota creada` y las entrega al índice `notas-logs`, donde se puede buscar el id `n1`. El temario nombra Fluentd; aquí el recolector es Fluent Bit, el mismo papel en un solo binario. Elasticsearch arranca sin autenticación, suficiente para ver ese documento.
 
 Kibana: http://127.0.0.1:5601
 
@@ -106,7 +106,7 @@ En Kibana: Stack Management, Data Views, patrón `notas-logs`, luego Discover.
 
 ## Qué observar
 
-El POST devuelve `{"id":"n1"}`. La búsqueda del índice contiene `nota creada` y `n1`.
+El POST devuelve `{"id":"n1"}`. La búsqueda del índice `notas-logs` contiene `nota creada` y ese mismo `n1`, porque Fluent Bit leyó la línea de stdout y la entregó al índice.
 
 ## Qué validar
 

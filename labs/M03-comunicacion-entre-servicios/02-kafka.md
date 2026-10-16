@@ -2,7 +2,7 @@
 
 [← RabbitMQ](01-rabbitmq.md) · [Siguiente página →](03-grpc.md)
 
-El topic guarda el mensaje. Leerlo no lo borra. El grupo de consumidores guarda un offset: el sitio hasta el que ese grupo ya leyó. El grupo `lectores` que ya pasó por el aviso no lo vuelve a imprimir si arranca otra vez. Un grupo nuevo, `auditoria`, lee desde su propio sitio y sí lo vuelve a ver. El topic es el mismo.
+En Kafka el mensaje se queda en el topic, y leerlo no lo borra. Lo que avanza es el grupo de consumidores, que guarda un offset: el sitio hasta el que ese grupo ya leyó. Por eso el grupo `lectores`, que ya pasó por el aviso, no lo vuelve a imprimir si arranca otra vez. Un grupo nuevo, `auditoria`, tiene su propio offset y sí vuelve a ver el mismo topic.
 
 El aviso del ejemplo es otra vez `{"zona":"hall"}`, en el topic `avisos`. El broker es un nodo en modo KRaft. El publicador reintenta la conexión porque el primer arranque tarda.
 

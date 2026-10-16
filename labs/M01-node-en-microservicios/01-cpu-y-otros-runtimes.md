@@ -2,9 +2,7 @@
 
 [← I/O no bloqueante](00-io-no-bloqueante.md) · [Siguiente página →](../M02-apis-rest-express/00-rutas-http.md)
 
-El I/O no bloqueante deja el hilo libre cuando la espera es de red. Un cálculo lo ocupa. Fibonacci de 40 cabe en una función `async` y, si no hay ningún `await`, el hilo no se suelta: `/salud` espera a que termine `/informe`.
-
-Ese es el límite del modelo. Node encaja cuando cada petición hace poca CPU y mucha red. Un batch de cálculo en el mismo proceso para el servicio entero.
+Un proceso de Node ejecuta JavaScript en un solo hilo. Puede atender varias peticiones a la vez porque, cuando una se queda esperando a la red, devuelve el control y ese mismo hilo sigue con otra. Un cálculo no espera a nadie. Fibonacci de 40 puede vivir dentro de una función `async`, pero si dentro no hay ningún `await` el hilo no se suelta hasta que el número está calculado, y `/salud` se queda parado detrás de `/informe`. Node aguanta muchas peticiones cuando cada una hace poca CPU y mucha espera. Un lote de cálculo largo, en ese mismo hilo, detiene el servicio entero mientras dura.
 
 | Runtime | Mucha red, poca CPU por petición | Un cálculo largo |
 |---------|----------------------------------|------------------|

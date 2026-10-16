@@ -4,7 +4,7 @@ El concepto está en [Kubernetes](../../labs/M06-docker-y-kubernetes/02-kubernet
 
 ## Dónde poner el foco
 
-Un Deployment mantiene el Pod. El Service `eco` reparte entre los Pods con etiqueta `app: eco`; el selector del Deployment usa la misma etiqueta. El PVC montado en `/datos` conserva un fichero cuando el Pod se borra. kind no ve las imágenes del host: hay que cargarlas con `kind load`. El clúster de las prácticas se llama `ms`. `imagePullPolicy: IfNotPresent` usa la imagen cargada en el nodo.
+Un Deployment mantiene los Pods de `eco` con la imagen cargada en el clúster. El Service reparte entre ellos porque busca la etiqueta `app: eco`, la misma que lleva cada Pod. El PVC montado en `/datos` conserva el fichero cuando el Pod se borra y el Deployment crea otro: el dato no vivía dentro del Pod. kind no ve las imágenes del host, así que hay que cargar `ms-eco:lab` con `kind load` en el clúster `ms`.
 
 ## Archivos
 
@@ -111,7 +111,7 @@ kubectl exec deploy/eco -- cat /datos/nota.txt
 
 ## Qué observar
 
-`nota`. El JSON del curl trae el nombre del Pod en `pod`.
+El `cat` imprime `nota`: el fichero sigue en el volumen después de borrar el Pod. El JSON del `curl` trae en `pod` el nombre del Pod que respondió, y ese nombre ya no es el del Pod que escribiste, porque el Deployment creó otro.
 
 ## Qué validar
 

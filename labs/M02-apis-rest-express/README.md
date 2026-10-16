@@ -2,9 +2,7 @@
 
 [← M01](../M01-node-en-microservicios/README.md) · [Siguiente página →](00-rutas-http.md)
 
-Express une un verbo y un camino con una función. Joi decide si el cuerpo vale. El código HTTP dice qué ha pasado. El middleware ve la petición antes que la ruta.
-
-Cada página se explica y se demuestra con su ejemplo. El laboratorio llega al cerrar las tres: juntas rutas, validación y clave sobre un recurso que no es ninguno de los ejemplos.
+Express ata un verbo y un camino a una función, que es quien responde. Antes de que esa función guarde el cuerpo, Joi lo compara con un esquema y decide si vale. El código HTTP cuenta qué ha pasado, y el middleware ve la petición antes que la ruta. Cada página se explica y se demuestra. El laboratorio llega al cerrar las tres y junta rutas, validación y clave sobre un recurso que no es ninguno de los ejemplos.
 
 ## Qué aprenderás
 

@@ -4,7 +4,7 @@ El concepto está en [bcrypt, crypto y TLS](../../labs/M05-seguridad-y-autentica
 
 ## Dónde poner el foco
 
-bcrypt guarda la contraseña para comprobarla: el hash no se descifra. AES-256-GCM cifra la dirección y sí se recupera, con la misma clave, el IV y la etiqueta que viajan en `direccion.bin`. TLS cifra el canal: el JSON de `/salud` va en claro dentro de la aplicación y cifrado en el cable. El certificado lo firmas tú.
+Hay tres cifras y cada una cubre una cosa. bcrypt guarda la contraseña para comprobarla, y del hash no se recupera la clave. AES-256-GCM cifra la dirección y sí se recupera, con la misma clave, el IV y la etiqueta que viajan en `direccion.bin`. TLS cifra el canal: el JSON de `/salud` va en claro dentro de la aplicación y cifrado en el cable. El certificado lo firmas tú.
 
 ## Archivos
 
@@ -107,7 +107,7 @@ echo
 
 ## Qué observar
 
-Un hash que empieza por `$2`, `coincide true`, `otra false`, `Calle Mayor 1`, y por HTTPS `{"ok":true}`.
+Aparece un hash que empieza por `$2`, `coincide true` con la clave buena y `otra false` con una distinta. `leer` recupera `Calle Mayor 1`. Por HTTPS, `/salud` responde `{"ok":true}`.
 
 ## Qué validar
 

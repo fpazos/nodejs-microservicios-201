@@ -4,7 +4,7 @@ El concepto está en [MongoDB y Mongoose](../../labs/M04-estado-y-persistencia/0
 
 ## Dónde poner el foco
 
-El alta escribe el libro y el proceso termina. La lectura es otro proceso: abre la base `libros`, busca el isbn `978-1` y solo pregunta. El documento sigue en MongoDB porque no vivía en la memoria del primer proceso. `unique` en el isbn y el `upsert` dejan un solo documento si el alta se lanza otra vez.
+El alta escribe el libro y el proceso termina. La lectura es otro proceso: abre la base `libros`, busca el isbn `978-1` y lo encuentra, porque el documento quedó en MongoDB y no en la memoria del primero.
 
 ## Archivos
 
@@ -72,7 +72,7 @@ npm run lectura
 
 ## Qué observar
 
-Las dos órdenes imprimen `isbn` `978-1` y `titulo` `El mapa`.
+Las dos órdenes imprimen `isbn` `978-1` y `titulo` `El mapa`. La segunda sale de otro proceso, así que el libro no estaba en la memoria del alta: estaba en MongoDB.
 
 ## Qué validar
 

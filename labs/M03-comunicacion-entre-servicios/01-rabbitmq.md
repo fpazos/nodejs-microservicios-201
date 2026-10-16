@@ -2,9 +2,7 @@
 
 [← EventEmitter](00-event-emitter.md) · [Siguiente página →](02-kafka.md)
 
-La cola vive en otro proceso, el broker. El publicador entrega el mensaje y puede terminar. El consumidor lo lee cuando está. Si el consumidor está parado, el mensaje espera en la cola: `Ready` pasa a 1. Cuando el consumidor arranca, confirma con `ack` y `Ready` vuelve a 0.
-
-Eso es lo que `EventEmitter` no puede hacer. El aviso sobrevive al proceso que lo tenía que leer.
+La cola vive en otro proceso, el broker. El publicador entrega el mensaje y puede terminar. El consumidor lo lee cuando está. Si está parado, el mensaje espera en la cola y `Ready` pasa a 1. Cuando arranca, confirma con `ack` y `Ready` vuelve a 0. Eso es lo que `EventEmitter` no puede hacer: el aviso sobrevive al proceso que lo tenía que leer.
 
 El ejemplo usa la cola `avisos`, el usuario `guest` y la clave `guest`. La consola de gestión escucha en el puerto 15672. El cuerpo es el mismo aviso de zona: `{"zona":"hall"}`.
 

@@ -2,21 +2,31 @@
 
 [Siguiente página →](labs/M01-node-en-microservicios/00-io-no-bloqueante.md)
 
-## De qué va este curso
+## Objetivo general
 
-Este curso va de microservicios con Node.js. Un microservicio aquí es un proceso pequeño con una responsabilidad: publica un API, habla con otros servicios, guarda su dato, sabe quién llama y se puede desplegar y observar.
+Al finalizar el curso, el alumno desarrolla microservicios con Node.js y los deja en condiciones de publicarse, comunicarse, persistir su estado, identificar a quien llama, desplegarse en contenedores y observarse en ejecución.
 
-Está dirigido a quien ya escribe JavaScript actual (módulos, promesas, `async`/`await`), conoce HTTP (verbos, códigos, JSON) y se maneja en la terminal de Linux. Con haber usado Docker una vez basta para arrancar. Kubernetes, gRPC y los brokers se aprenden en el curso. No hace falta cuenta de Google, Facebook ni GitHub: cuando aparece OAuth, el proveedor es local y usa el mismo contrato que esos sitios.
+## Enfoque
 
-El objetivo es dejar servicios que se hablan, se descubren, guardan estado, se identifican y se despliegan con una señal de salud, y saber explicar qué está pasando en cada pieza:
+El microservicio se trata como un proceso con una responsabilidad, desplegable por separado. El recorrido va del runtime de Node ante la red al API, a la comunicación entre servicios, al dato, a la identidad, al contenedor y a la señal de salud. Cada tema se cierra con un servicio que se ejecuta y con el criterio para explicar qué está ocurriendo en esa pieza.
 
-- cuándo Node sostiene un API de red y cuándo un cálculo pide otro runtime;
-- un API con rutas, validación, códigos HTTP y middleware;
-- un aviso dentro del proceso, una cola, una consulta con contrato, un canal abierto, un listín de servicios y un solo puerto de entrada;
-- el dato en MongoDB o PostgreSQL, una copia caliente en Redis, y una lectura que no mira la misma tabla que la escritura;
-- una identidad con rol, un authorization code y el cifrado de una clave, de un campo y del canal;
-- una imagen, varios contenedores en una red y un despliegue con más de una réplica;
-- una métrica, el recorrido de una petición y un log que se puede buscar.
+## Dirigido a
+
+Desarrolladores backend que ya construyen servicios HTTP y van a escribir y operar microservicios en Node.js: publicarlos, comunicarlos, persistir su estado y dejarlos en ejecución.
+
+## Conocimientos previos
+
+JavaScript actual (módulos, promesas, `async`/`await`), HTTP (métodos, códigos de estado y JSON) y soltura con la terminal de Linux. Haber usado Docker en alguna ocasión es suficiente para empezar. Kubernetes, gRPC y los brokers de mensajes se estudian en el curso. El flujo OAuth se realiza contra un proveedor local que implementa el mismo contrato que Google, Facebook y GitHub, de modo que no hace falta una cuenta en esos servicios.
+
+## Objetivos específicos
+
+- Desarrollar microservicios con Node.js y distinguir cuándo el bucle de eventos sostiene un API de red y cuándo un cálculo intensivo pide otro runtime.
+- Diseñar APIs con rutas, validación, códigos HTTP y middleware.
+- Comunicar servicios mediante eventos en el proceso, colas, gRPC, WebSockets, descubrimiento y un punto único de entrada.
+- Persistir el dato en MongoDB o PostgreSQL, mantener una copia caliente en Redis y separar la escritura de la lectura.
+- Identificar al llamante con un rol, recorrer un authorization code y cifrar una clave, un campo y el canal.
+- Empaquetar el servicio en una imagen, levantarlo con varios contenedores y desplegarlo con más de una réplica.
+- Aplicar monitorización y seguridad operativa: una métrica, el recorrido de una petición y un log que se puede buscar.
 
 ## Temario
 

@@ -2,9 +2,7 @@
 
 [← Middleware](../M02-apis-rest-express/02-middleware.md) · [Siguiente página →](01-rabbitmq.md)
 
-`EventEmitter` es un objeto en memoria. Alguien hace `emit` con un nombre y un dato. Quien hizo `on` con ese nombre, sobre el mismo objeto, recibe el dato. El nombre no sale del proceso. Otro `node` puede escuchar `alarma` y no se entera: su `EventEmitter` es otro objeto.
-
-Sirve para avisar dentro del servicio: un módulo emite, otro del mismo proceso reacciona, sin que se llamen entre sí. No sirve para avisar a otro microservicio. En cuanto hay dos procesos, el aviso necesita un sitio fuera de los dos, y eso es la cola.
+`EventEmitter` es un objeto en memoria del proceso. Alguien hace `emit` con un nombre y un dato, y quien hizo `on` con ese nombre sobre el mismo objeto recibe el dato. El nombre no viaja a ningún sitio: otro proceso puede escuchar `alarma` y no se entera, porque su `EventEmitter` es otro objeto. Sirve para que un módulo avise a otro del mismo servicio sin llamarse entre sí. En cuanto hay dos procesos, el aviso necesita un sitio fuera de los dos, y eso es la cola.
 
 ## Qué se mira
 

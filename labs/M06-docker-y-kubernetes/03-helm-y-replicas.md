@@ -4,7 +4,7 @@
 
 Helm instala el mismo `eco` a partir de un chart. `values.yaml` fija `replicaCount: 2` y la imagen `ms-eco:lab`. Cambiar el número de réplicas es cambiar ese valor, o `kubectl scale`, y el Deployment converge. El Service reparte entre los Pods que siguen teniendo la etiqueta. Seis peticiones desde dentro del clúster, a `http://eco:3001/eco`, enseñan al menos dos nombres de Pod.
 
-El HPA declara un mínimo de 2 y un máximo de 4 cuando la CPU pasa del 70 %. El objeto se crea. En kind, sin metrics-server, la columna de objetivo se queda en `<unknown>` y el HPA no mueve réplicas. El autoescalado se ve como declaración. El reparto se ve al subir las réplicas a mano.
+El HPA declara un mínimo de 2 y un máximo de 4 cuando la CPU pasa del 70 %. El objeto se crea, pero en kind, sin metrics-server, la columna de objetivo se queda en `<unknown>` y el HPA no mueve réplicas. El autoescalado se ve como esa declaración. El reparto, al subir las réplicas a mano.
 
 El chart reutiliza el clúster `ms` y la imagen del ejemplo de Kubernetes.
 
