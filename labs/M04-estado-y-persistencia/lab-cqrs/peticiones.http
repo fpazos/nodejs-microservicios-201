@@ -1,0 +1,46 @@
+### Punto de partida
+
+curl -X POST http://127.0.0.1:3002/turnos
+
+### Punto de partida
+
+curl http://127.0.0.1:3002/turnos/T-1
+
+### 1 — Programar la copia, el GET sigue en la tabla
+
+curl -X POST http://127.0.0.1:3002/turnos
+
+### 1 — Programar la copia, el GET sigue en la tabla
+
+curl http://127.0.0.1:3002/turnos/T-1
+
+### 2 — La consulta lee la copia
+
+curl -X POST http://127.0.0.1:3002/turnos
+
+### 2 — La consulta lee la copia
+
+curl http://127.0.0.1:3002/turnos/T-1
+
+### 2 — La consulta lee la copia
+
+# Lánzala cuando haya pasado el segundo y medio.
+curl http://127.0.0.1:3002/turnos/T-1
+
+### Comprueba — Borrar la proyección no borra la fila
+
+curl http://127.0.0.1:3002/turnos/T-1
+
+### Reto — Un hueco más largo
+
+curl -X POST http://127.0.0.1:3002/turnos
+
+### Reto — Un hueco más largo
+
+# Lánzala a los 2 segundos del POST. Tiene que seguir en 404.
+curl http://127.0.0.1:3002/turnos/T-1
+
+### Reto — Un hueco más largo
+
+# Lánzala cuando ya hayan pasado los 4 segundos.
+curl http://127.0.0.1:3002/turnos/T-1

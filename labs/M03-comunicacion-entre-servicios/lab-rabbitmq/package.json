@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "publicar": "node publicador.mjs",
-    "consumir": "node consumidor.mjs"
+    "consumir": "node --watch consumidor.mjs"
   },
   "dependencies": { "amqplib": "^0.10.5" }
 }

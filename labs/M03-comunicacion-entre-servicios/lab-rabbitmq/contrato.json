@@ -1,0 +1,12 @@
+{
+  "laboratorio": "rabbitmq",
+  "casos": [
+    {
+      "nombre": "publicar",
+      "cola": "trabajos",
+      "persistente": true,
+      "mensaje": { "tarea": "barrer" },
+      "consumidor": "imprime el mismo JSON y confirma el mensaje"
+    }
+  ]
+}

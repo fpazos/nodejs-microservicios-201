@@ -1,3 +1,5 @@
+// Devuelve el hostname del contenedor. Quien reparte entre Pods
+// es el Service; este proceso solo dice cómo se llama.
 import express from 'express';
 
 const app = express();

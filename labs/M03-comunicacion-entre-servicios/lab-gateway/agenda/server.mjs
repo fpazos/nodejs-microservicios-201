@@ -1,3 +1,5 @@
+// La cita de hoy. Este puerto no se publica en el host: lo usa
+// quien comparte la red de Compose con este proceso.
 import express from 'express';
 
 const app = express();

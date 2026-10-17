@@ -1,0 +1,24 @@
+{
+  "laboratorio": "metricas",
+  "casos": [
+    {
+      "nombre": "votar",
+      "metodo": "POST",
+      "camino": "http://127.0.0.1:3001/votos",
+      "respuesta": { "status": 201, "cuerpo": { "votos": 1 } }
+    },
+    {
+      "nombre": "contador",
+      "metodo": "GET",
+      "camino": "http://127.0.0.1:3001/metrics",
+      "cuando": "después de dos POST",
+      "respuesta": { "status": 200, "contiene": "votos_total 2" }
+    },
+    {
+      "nombre": "consulta",
+      "metodo": "GET",
+      "camino": "http://127.0.0.1:9090/api/v1/query?query=votos_total",
+      "respuesta": { "status": 200, "cuerpo": { "status": "success", "data": { "result": [{ "value": ["<unix>", "2"] }] } } }
+    }
+  ]
+}

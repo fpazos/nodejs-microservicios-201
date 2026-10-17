@@ -1,3 +1,5 @@
+// Deja la película p1, El faro, en Mongo. Si la fila ya estaba,
+// la actualiza: se puede lanzar más de una vez.
 import mongoose from 'mongoose';
 
 await mongoose.connect('mongodb://127.0.0.1:27017/peliculas');

@@ -1,0 +1,56 @@
+### Punto de partida
+
+curl -X POST http://127.0.0.1:3001/votos
+
+### Punto de partida
+
+curl http://127.0.0.1:3001/metrics
+
+### 1 — Publicar el contador, sin sumarlo
+
+curl http://127.0.0.1:3001/metrics
+
+### 1 — Publicar el contador, sin sumarlo
+
+curl -X POST http://127.0.0.1:3001/votos
+
+### 1 — Publicar el contador, sin sumarlo
+
+curl http://127.0.0.1:3001/metrics
+
+### 2 — Sumar en el POST
+
+curl -X POST http://127.0.0.1:3001/votos
+
+### 2 — Sumar en el POST
+
+curl -X POST http://127.0.0.1:3001/votos
+
+### 2 — Sumar en el POST
+
+curl http://127.0.0.1:3001/metrics
+
+### 3 — Pregunta a Prometheus
+
+curl http://127.0.0.1:9090/-/ready
+
+### 3 — Pregunta a Prometheus
+
+curl http://127.0.0.1:9090/api/v1/query?query=votos_total
+
+### Comprueba — Parar el proceso no borra la serie al instante
+
+curl http://127.0.0.1:9090/api/v1/query?query=votos_total
+
+### Reto — Un voto más
+
+curl -X POST http://127.0.0.1:3001/votos
+
+### Reto — Un voto más
+
+curl http://127.0.0.1:3001/metrics
+
+### Reto — Un voto más
+
+# Lánzala después del raspado, unos 5 segundos.
+curl http://127.0.0.1:9090/api/v1/query?query=votos_total

@@ -1,0 +1,81 @@
+{
+  "laboratorio": "incidencias",
+  "base": "http://127.0.0.1:3001",
+  "casos": [
+    {
+      "nombre": "salud",
+      "metodo": "GET",
+      "camino": "/salud",
+      "respuesta": { "status": 200, "cuerpo": { "ok": true } }
+    },
+    {
+      "nombre": "alta",
+      "metodo": "POST",
+      "camino": "/incidencias",
+      "cabeceras": { "content-type": "application/json", "x-api-key": "lab-incidencias" },
+      "cuerpo": { "id": "i1", "titulo": "puerta rota", "gravedad": "alta" },
+      "respuesta": {
+        "status": 201,
+        "cuerpo": { "id": "i1", "titulo": "puerta rota", "gravedad": "alta" }
+      }
+    },
+    {
+      "nombre": "sin clave",
+      "metodo": "POST",
+      "camino": "/incidencias",
+      "cabeceras": { "content-type": "application/json" },
+      "cuerpo": { "id": "i1", "titulo": "puerta rota", "gravedad": "alta" },
+      "respuesta": { "status": 401, "cuerpo": { "error": "falta la clave" } }
+    },
+    {
+      "nombre": "cuerpo invalido",
+      "metodo": "POST",
+      "camino": "/incidencias",
+      "cabeceras": { "content-type": "application/json", "x-api-key": "lab-incidencias" },
+      "cuerpo": { "id": "i1", "titulo": "", "gravedad": "urgente" },
+      "respuesta": { "status": 400, "cuerpo": { "error": "mensaje de Joi" } }
+    },
+    {
+      "nombre": "id repetido",
+      "metodo": "POST",
+      "camino": "/incidencias",
+      "cuando": "i1 ya está en la lista",
+      "cabeceras": { "content-type": "application/json", "x-api-key": "lab-incidencias" },
+      "cuerpo": { "id": "i1", "titulo": "puerta rota", "gravedad": "alta" },
+      "respuesta": { "status": 409, "cuerpo": { "error": "id ya existe" } }
+    },
+    {
+      "nombre": "leer",
+      "metodo": "GET",
+      "camino": "/incidencias/i1",
+      "respuesta": {
+        "status": 200,
+        "cuerpo": { "id": "i1", "titulo": "puerta rota", "gravedad": "alta" }
+      }
+    },
+    {
+      "nombre": "no encontrada",
+      "metodo": "GET",
+      "camino": "/incidencias/no-esta",
+      "respuesta": { "status": 404, "cuerpo": { "error": "no encontrada" } }
+    },
+    {
+      "nombre": "cambiar",
+      "metodo": "PUT",
+      "camino": "/incidencias/i1",
+      "cabeceras": { "content-type": "application/json", "x-api-key": "lab-incidencias" },
+      "cuerpo": { "id": "i1", "titulo": "puerta arreglada", "gravedad": "baja" },
+      "respuesta": {
+        "status": 200,
+        "cuerpo": { "id": "i1", "titulo": "puerta arreglada", "gravedad": "baja" }
+      }
+    },
+    {
+      "nombre": "borrar",
+      "metodo": "DELETE",
+      "camino": "/incidencias/i1",
+      "cabeceras": { "x-api-key": "lab-incidencias" },
+      "respuesta": { "status": 204 }
+    }
+  ]
+}

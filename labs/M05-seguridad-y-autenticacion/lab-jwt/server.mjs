@@ -1,3 +1,5 @@
+// Cualquiera lee y cambia `plato`. El cuerpo del PUT se acepta
+// sin mirar quién llama.
 import express from 'express';
 
 const app = express();

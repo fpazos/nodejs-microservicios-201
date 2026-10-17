@@ -1,0 +1,26 @@
+{
+  "laboratorio": "gateway",
+  "base": "http://127.0.0.1:8080",
+  "casos": [
+    {
+      "nombre": "salud",
+      "metodo": "GET",
+      "camino": "/salud",
+      "respuesta": { "status": 200, "cuerpo": { "ok": true } }
+    },
+    {
+      "nombre": "cita",
+      "metodo": "GET",
+      "camino": "/api/agenda/hoy",
+      "origen": "http://agenda:3001/hoy",
+      "respuesta": { "status": 200, "cuerpo": { "cita": "dentista" } }
+    },
+    {
+      "nombre": "tiempo",
+      "metodo": "GET",
+      "camino": "/api/tiempo/manana",
+      "origen": "http://tiempo:3002/manana",
+      "respuesta": { "status": 200, "cuerpo": { "estado": "lluvia" } }
+    }
+  ]
+}

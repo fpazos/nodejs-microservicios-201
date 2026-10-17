@@ -1,0 +1,19 @@
+{
+  "laboratorio": "cache",
+  "base": "http://127.0.0.1:3001",
+  "casos": [
+    {
+      "nombre": "leer",
+      "metodo": "GET",
+      "camino": "/peliculas/p1",
+      "respuesta": { "status": 200, "cuerpo": { "id": "p1", "titulo": "El faro" } },
+      "cache": { "clave": "pelicula:p1", "ttl": 60 }
+    },
+    {
+      "nombre": "no encontrada",
+      "metodo": "GET",
+      "camino": "/peliculas/p2",
+      "respuesta": { "status": 404, "cuerpo": { "error": "no encontrada" } }
+    }
+  ]
+}

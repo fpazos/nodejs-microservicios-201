@@ -1,3 +1,6 @@
+// El POST guarda la fila y el GET la lee en la misma tabla, así que
+// la respuesta es inmediata. `redis` está conectado y ninguna de las
+// dos rutas lo usa.
 import express from 'express';
 import { Sequelize, DataTypes } from 'sequelize';
 import Redis from 'ioredis';

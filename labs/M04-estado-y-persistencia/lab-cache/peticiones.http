@@ -1,0 +1,31 @@
+### Punto de partida
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### Punto de partida
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### 1 — Guardar la copia, sin leerla todavía
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### 1 — Guardar la copia, sin leerla todavía
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### 2 — Mirar Redis antes que Mongo
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### 2 — Mirar Redis antes que Mongo
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### 3 — Para Mongo
+
+curl http://127.0.0.1:3001/peliculas/p1
+
+### Reto — Un id que no está
+
+curl http://127.0.0.1:3001/peliculas/p2

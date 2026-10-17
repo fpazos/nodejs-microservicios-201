@@ -1,3 +1,6 @@
+// Cada GET lee Mongo y lo escribe en el log. Redis está conectado
+// y este manejador no lo consulta, así que la segunda lectura
+// repite el mismo viaje.
 import express from 'express';
 import mongoose from 'mongoose';
 import Redis from 'ioredis';

@@ -1,0 +1,36 @@
+{
+  "laboratorio": "consul",
+  "casos": [
+    {
+      "nombre": "salud",
+      "metodo": "GET",
+      "camino": "http://127.0.0.1:3001/salud",
+      "respuesta": { "status": 200, "cuerpo": { "ok": true } }
+    },
+    {
+      "nombre": "codigo",
+      "metodo": "GET",
+      "camino": "http://127.0.0.1:3001/codigo",
+      "respuesta": { "status": 200, "cuerpo": { "codigo": "+34" } }
+    },
+    {
+      "nombre": "registro",
+      "metodo": "PUT",
+      "camino": "http://127.0.0.1:8500/v1/agent/service/register",
+      "cabeceras": { "content-type": "application/json" },
+      "cuerpo": {
+        "Name": "prefijos",
+        "ID": "prefijos-1",
+        "Address": "127.0.0.1",
+        "Port": 3001,
+        "Check": { "HTTP": "http://prefijos:3001/salud", "Interval": "5s" }
+      }
+    },
+    {
+      "nombre": "passing",
+      "metodo": "GET",
+      "camino": "http://127.0.0.1:8500/v1/health/service/prefijos?passing",
+      "respuesta": { "status": 200, "contiene": { "Service": "prefijos", "Address": "127.0.0.1", "Port": 3001 } }
+    }
+  ]
+}

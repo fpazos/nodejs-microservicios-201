@@ -1,6 +1,8 @@
 # Laboratorio: un solo puerto
 
-El ejemplo de gateway ya enruta clima y cotizaciones por un solo puerto. Aquí `agenda` y `tiempo` están levantados y no publican el suyo. El gateway escucha en el 8080 y solo responde `/salud`. El fichero `gateway/server.mjs` está montado en el contenedor, así que al guardarlo `node --watch` reinicia y puedes añadir las rutas sin reconstruir la imagen.
+El ejemplo de gateway ya enruta clima y cotizaciones por un solo puerto. Aquí `agenda` y `tiempo` están levantados y no publican el suyo. El gateway escucha en el 8080 y solo responde `/salud`. Primero reenvías la cita, la pruebas, y después añades el tiempo. El fichero `gateway/server.mjs` está montado en el contenedor, así que al guardarlo `node --watch` reinicia y puedes añadir las rutas sin reconstruir la imagen. `rutas.mjs`, en la misma carpeta, también entra en ese reinicio en cuanto el servidor lo importa.
+
+Los caminos del gateway y el JSON que copia de cada servicio están en [contrato.json](contrato.json).
 
 ### Objetivo
 
@@ -18,23 +20,25 @@ echo
 
 `{"ok":true}`. `curl http://127.0.0.1:3001/hoy` no conecta.
 
-### 1 — Crea `gateway/rutas.mjs` y enganchalo
+Las mismas peticiones están en `peticiones.http`. Ábrelo y pulsa Send Request encima de la que quieras (extensión REST Client).
 
-**Acción:** crea `gateway/rutas.mjs` con esto.
+### 1 — La cita, por el 8080
+
+**Acción:** crea `gateway/rutas.mjs` con el reenvío y una sola ruta.
 
 ```js
 async function reenviar(res, url) {
+  // El gateway no inventa el JSON: copia el status y el cuerpo
+  // de la respuesta que le dio el servicio de dentro.
   const respuesta = await fetch(url);
   res.status(respuesta.status).json(await respuesta.json());
 }
 
 export function montar(app) {
+  // El cliente llama al 8080. `agenda` es el nombre en la red de Compose,
+  // donde corre este proceso. En tu terminal ese nombre no existe.
   app.get('/api/agenda/hoy', async (req, res) => {
     await reenviar(res, 'http://agenda:3001/hoy');
-  });
-
-  app.get('/api/tiempo/manana', async (req, res) => {
-    await reenviar(res, 'http://tiempo:3002/manana');
   });
 }
 ```
@@ -42,10 +46,12 @@ export function montar(app) {
 En `gateway/server.mjs`, añade el import arriba y, antes de `listen`, esta línea.
 
 ```js
+// montar añade las rutas que reenvían. /salud sigue siendo la de este fichero.
 import { montar } from './rutas.mjs';
 ```
 
 ```js
+// Las rutas de dentro se cuelgan aquí. /salud ya estaba y se queda.
 montar(app);
 ```
 
@@ -54,13 +60,37 @@ Espera a que el log de `ms-lab-gateway` diga otra vez `gateway en 8080`.
 ```bash
 curl -s http://127.0.0.1:8080/api/agenda/hoy
 echo
+curl -s -w '\n%{http_code}\n' http://127.0.0.1:8080/api/tiempo/manana
+```
+
+**Por qué:** el cliente habla con un puerto. El nombre `agenda` solo existe en la red de Compose. La ruta del tiempo todavía no está, y ese curl sirve para ver el hueco.
+
+**Resultado esperado:** `{"cita":"dentista"}`. El segundo curl es 404.
+
+### 2 — El tiempo, con el mismo reenvío
+
+**Acción:** dentro de `montar`, después de la ruta de agenda, pega esta.
+
+```js
+  // Mismo reenvío, otro servicio. `tiempo` escucha el 3002 dentro de Compose
+  // y no publica ese puerto en el host.
+  app.get('/api/tiempo/manana', async (req, res) => {
+    await reenviar(res, 'http://tiempo:3002/manana');
+  });
+```
+
+Espera otra vez el log `gateway en 8080`.
+
+```bash
 curl -s http://127.0.0.1:8080/api/tiempo/manana
+echo
+curl -s http://127.0.0.1:8080/api/agenda/hoy
 echo
 ```
 
-**Por qué:** el cliente habla con un puerto. Los nombres `agenda` y `tiempo` solo existen en la red de Compose, que es donde corre el gateway.
+**Por qué:** las dos rutas comparten `reenviar`. Cada una nombra su servicio. El puerto 3001 del host sigue cerrado: la cita solo entra por el 8080.
 
-**Resultado esperado:** `{"cita":"dentista"}` y `{"estado":"lluvia"}`.
+**Resultado esperado:** `{"estado":"lluvia"}` y, otra vez, `{"cita":"dentista"}`.
 
 ## Si quieres probar
 
@@ -77,6 +107,34 @@ Los dos `curl` al 8080. El puerto 3001 del host no responde.
 **Un prefijo que no has escrito**
 `curl -s -w '\n%{http_code}\n' http://127.0.0.1:8080/api/agenda/ayer`
 → 404. El gateway no tiene esa ruta, y `agenda` tampoco tiene `/ayer` si la hubieras reenviado tal cual.
+
+## Reto
+
+### 1 — La cita con otro camino
+
+Añade `GET /api/citas/hoy` que reenvíe a la misma URL de agenda, `http://agenda:3001/hoy`.
+
+<details>
+<summary>Ver solución</summary>
+
+Dentro de `montar`:
+
+```js
+  // Otro camino en el 8080. El destino es el mismo /hoy de agenda.
+  app.get('/api/citas/hoy', async (req, res) => {
+    await reenviar(res, 'http://agenda:3001/hoy');
+  });
+```
+
+Cuando el log repita `gateway en 8080`:
+
+```bash
+curl -s http://127.0.0.1:8080/api/citas/hoy; echo
+```
+
+`{"cita":"dentista"}`. Es el mismo `reenviar` y el mismo servicio, con otro camino en el 8080.
+
+</details>
 
 ## Errores frecuentes
 

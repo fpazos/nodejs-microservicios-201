@@ -1,0 +1,54 @@
+{
+  "laboratorio": "jwt",
+  "base": "http://127.0.0.1:3001",
+  "secreto": "secreto-recetas",
+  "cuentas": { "noa": "chef", "ian": "comensal" },
+  "clave": "lab",
+  "casos": [
+    {
+      "nombre": "sesion chef",
+      "metodo": "POST",
+      "camino": "/sesion",
+      "cabeceras": { "content-type": "application/json" },
+      "cuerpo": { "sub": "noa", "clave": "lab" },
+      "respuesta": { "status": 200, "cuerpo": { "token": "<jwt con sub noa y rol chef>" } }
+    },
+    {
+      "nombre": "credenciales",
+      "metodo": "POST",
+      "camino": "/sesion",
+      "cabeceras": { "content-type": "application/json" },
+      "cuerpo": { "sub": "eva", "clave": "lab" },
+      "respuesta": { "status": 401, "cuerpo": { "error": "credenciales" } }
+    },
+    {
+      "nombre": "leer sin token",
+      "metodo": "GET",
+      "camino": "/recetas/r1",
+      "respuesta": { "status": 401, "cuerpo": { "error": "token no valido" } }
+    },
+    {
+      "nombre": "leer",
+      "metodo": "GET",
+      "camino": "/recetas/r1",
+      "cabeceras": { "authorization": "Bearer <token de noa o de ian>" },
+      "respuesta": { "status": 200, "cuerpo": { "id": "r1", "plato": "sopa" } }
+    },
+    {
+      "nombre": "cambiar",
+      "metodo": "PUT",
+      "camino": "/recetas/r1",
+      "cabeceras": { "content-type": "application/json", "authorization": "Bearer <token de noa>" },
+      "cuerpo": { "plato": "arroz" },
+      "respuesta": { "status": 200, "cuerpo": { "id": "r1", "plato": "arroz" } }
+    },
+    {
+      "nombre": "comensal no cambia",
+      "metodo": "PUT",
+      "camino": "/recetas/r1",
+      "cabeceras": { "content-type": "application/json", "authorization": "Bearer <token de ian>" },
+      "cuerpo": { "plato": "nada" },
+      "respuesta": { "status": 403, "cuerpo": { "error": "rol insuficiente" } }
+    }
+  ]
+}

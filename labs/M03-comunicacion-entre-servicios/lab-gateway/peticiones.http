@@ -1,0 +1,31 @@
+### Punto de partida
+
+curl http://127.0.0.1:8080/salud
+
+### 1 — La cita, por el 8080
+
+curl http://127.0.0.1:8080/api/agenda/hoy
+
+### 1 — La cita, por el 8080
+
+curl http://127.0.0.1:8080/api/tiempo/manana
+
+### 2 — El tiempo, con el mismo reenvío
+
+curl http://127.0.0.1:8080/api/tiempo/manana
+
+### 2 — El tiempo, con el mismo reenvío
+
+curl http://127.0.0.1:8080/api/agenda/hoy
+
+### Si quieres probar
+
+curl http://127.0.0.1:8080/api/agenda/hoy
+
+### Comprueba — Un prefijo que no has escrito
+
+curl http://127.0.0.1:8080/api/agenda/ayer
+
+### Reto — La cita con otro camino
+
+curl http://127.0.0.1:8080/api/citas/hoy

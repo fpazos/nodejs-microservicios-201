@@ -1,0 +1,17 @@
+{
+  "laboratorio": "kind",
+  "casos": [
+    {
+      "nombre": "eco",
+      "metodo": "GET",
+      "camino": "http://eco:3001/eco",
+      "respuesta": { "status": 200, "cuerpo": { "pod": "eco-<id>" } }
+    },
+    {
+      "nombre": "service",
+      "selector": { "app": "eco" },
+      "puerto": 3001,
+      "replicas": 3
+    }
+  ]
+}

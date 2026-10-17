@@ -1,3 +1,5 @@
+// El tiempo de mañana, en el 3002 de la red de Compose.
+// El host no tiene ese puerto publicado.
 import express from 'express';
 
 const app = express();

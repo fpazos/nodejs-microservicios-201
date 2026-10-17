@@ -1,0 +1,155 @@
+### Punto de partida
+
+curl http://127.0.0.1:3001/salud
+
+### 1 — El esquema y un POST que solo valida
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"","gravedad":"urgente"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 1 — El esquema y un POST que solo valida
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 2 — El id que ya está
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 2 — El id que ya está
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 3 — La clave en el POST
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 3 — La clave en el POST
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 4 — Leer
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 4 — Leer
+
+curl http://127.0.0.1:3001/incidencias/i1
+
+### 4 — Leer
+
+curl http://127.0.0.1:3001/incidencias/no-esta
+
+### 5 — Cambiar
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 5 — Cambiar
+
+curl -X PUT -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta arreglada","gravedad":"baja"}' \
+  http://127.0.0.1:3001/incidencias/i1
+
+### 5 — Cambiar
+
+curl http://127.0.0.1:3001/incidencias/i1
+
+### 6 — Borrar
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### 6 — Borrar
+
+curl -X DELETE -H 'x-api-key: lab-incidencias' \
+  http://127.0.0.1:3001/incidencias/i1
+
+### 6 — Borrar
+
+curl http://127.0.0.1:3001/incidencias/i1
+
+### 6 — Borrar
+
+curl http://127.0.0.1:3001/salud
+
+### Si quieres probar
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Así se ve
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"","gravedad":"urgente"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Así se ve
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"","gravedad":"urgente"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Así se ve
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Así se ve
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta rota","gravedad":"alta"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Así se ve
+
+curl http://127.0.0.1:3001/incidencias/i1
+
+### Así se ve
+
+curl -X PUT -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"puerta arreglada","gravedad":"baja"}' \
+  http://127.0.0.1:3001/incidencias/i1
+
+### Así se ve
+
+curl -X DELETE -H 'x-api-key: lab-incidencias' \
+  http://127.0.0.1:3001/incidencias/i1
+
+### Así se ve
+
+curl http://127.0.0.1:3001/incidencias/i1
+
+### Así se ve
+
+curl http://127.0.0.1:3001/salud
+
+### Comprueba — Un GET con id desconocido no es un 400
+
+curl http://127.0.0.1:3001/incidencias/no-esta
+
+### Reto — Gravedad media, lectura sin clave
+
+curl -X POST -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i2","titulo":"ventana","gravedad":"media"}' \
+  http://127.0.0.1:3001/incidencias
+
+### Reto — Gravedad media, lectura sin clave
+
+curl http://127.0.0.1:3001/incidencias/i2

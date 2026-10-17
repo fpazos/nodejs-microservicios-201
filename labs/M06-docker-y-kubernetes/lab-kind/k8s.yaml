@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: eco
 spec:
+  # Cuántos Pods mantiene el Deployment. Con 1, el Service tendrá
+  # un solo endpoint cuando el selector coincida con la etiqueta.
   replicas: 1
   selector:
     matchLabels:
@@ -24,6 +26,9 @@ kind: Service
 metadata:
   name: eco
 spec:
+  # El Service no busca el Deployment por su nombre. Se queda con los
+  # Pods cuya etiqueta coincide con este selector. La etiqueta del Pod
+  # está en el template de arriba: si no es la misma, ENDPOINTS sale vacío.
   selector:
     app: eco-mal
   ports:

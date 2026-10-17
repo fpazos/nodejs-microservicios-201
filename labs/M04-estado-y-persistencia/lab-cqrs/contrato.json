@@ -1,0 +1,28 @@
+{
+  "laboratorio": "cqrs",
+  "base": "http://127.0.0.1:3002",
+  "casos": [
+    {
+      "nombre": "alta",
+      "metodo": "POST",
+      "camino": "/turnos",
+      "respuesta": { "status": 201, "cuerpo": { "id": "T-1", "mesa": "4" } },
+      "escritura": { "tabla": "turnos", "fila": { "id": "T-1", "mesa": "4" } }
+    },
+    {
+      "nombre": "aun no proyectado",
+      "metodo": "GET",
+      "camino": "/turnos/T-1",
+      "cuando": "antes de 1,5 s",
+      "respuesta": { "status": 404, "cuerpo": { "error": "aun no proyectado" } }
+    },
+    {
+      "nombre": "leido de la copia",
+      "metodo": "GET",
+      "camino": "/turnos/T-1",
+      "cuando": "después de 1,5 s",
+      "respuesta": { "status": 200, "cuerpo": { "id": "T-1", "mesa": "4" } },
+      "lectura": { "clave": "turno:T-1" }
+    }
+  ]
+}

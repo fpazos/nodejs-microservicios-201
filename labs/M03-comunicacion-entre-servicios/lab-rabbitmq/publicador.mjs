@@ -1,3 +1,6 @@
+// Publica un mensaje y cierra. La cola y el cuerpo siguen como un hueco
+// a propósito: tienen que coincidir con lo que escuche el consumidor,
+// y ese acuerdo todavía no vive en un solo sitio.
 import amqp from 'amqplib';
 
 const conn = await amqp.connect('amqp://guest:guest@127.0.0.1:5672');

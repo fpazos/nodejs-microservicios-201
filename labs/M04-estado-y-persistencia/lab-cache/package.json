@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "semilla": "node semilla.mjs",
-    "start": "node server.mjs"
+    "start": "node --watch server.mjs"
   },
   "dependencies": {
     "express": "^5.1.0",

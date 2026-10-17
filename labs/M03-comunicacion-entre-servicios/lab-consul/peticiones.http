@@ -1,0 +1,7 @@
+### Punto de partida
+
+curl http://127.0.0.1:3001/codigo
+
+### 1 — Registrarlo al escuchar
+
+curl http://127.0.0.1:8500/v1/health/service/prefijos?passing

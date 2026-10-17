@@ -1,0 +1,105 @@
+### Punto de partida
+
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"plato":"pescado"}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 1 — Firmar el rol
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"noa","clave":"no"}' \
+  http://127.0.0.1:3001/sesion
+
+### 1 — Firmar el rol
+
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"noa","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### 1 — Firmar el rol
+
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"plato":"pescado"}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 2 — Cerrar la lectura
+
+curl http://127.0.0.1:3001/recetas/r1
+
+### 2 — Cerrar la lectura
+
+# @name noaPaso2
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"noa","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### 2 — Cerrar la lectura
+
+curl -H 'Authorization: Bearer {{noaPaso2.response.body.$.token}}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 2 — Cerrar la lectura
+
+# @name ianPaso2
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"ian","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### 2 — Cerrar la lectura
+
+curl -H 'Authorization: Bearer {{ianPaso2.response.body.$.token}}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 2 — Cerrar la lectura
+
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"plato":"pescado"}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 3 — El cambio, solo para el chef
+
+# @name noaPaso3
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"noa","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### 3 — El cambio, solo para el chef
+
+curl -X PUT -H 'Authorization: Bearer {{noaPaso3.response.body.$.token}}' -H 'Content-Type: application/json' \
+  -d '{"plato":"arroz"}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 3 — El cambio, solo para el chef
+
+# @name ianPaso3
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"ian","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### 3 — El cambio, solo para el chef
+
+curl -X PUT -H 'Authorization: Bearer {{ianPaso3.response.body.$.token}}' -H 'Content-Type: application/json' \
+  -d '{"plato":"nada"}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 3 — El cambio, solo para el chef
+
+curl -H 'Authorization: Bearer {{ianPaso3.response.body.$.token}}' \
+  http://127.0.0.1:3001/recetas/r1
+
+### 3 — El cambio, solo para el chef
+
+curl http://127.0.0.1:3001/recetas/r1
+
+### Reto — Otra cuenta de chef
+
+# @name evaReto
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"sub":"eva","clave":"lab"}' \
+  http://127.0.0.1:3001/sesion
+
+### Reto — Otra cuenta de chef
+
+curl -X PUT -H 'Authorization: Bearer {{evaReto.response.body.$.token}}' -H 'Content-Type: application/json' \
+  -d '{"plato":"tarta"}' \
+  http://127.0.0.1:3001/recetas/r1

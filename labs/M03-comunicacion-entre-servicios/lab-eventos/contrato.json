@@ -1,0 +1,12 @@
+{
+  "laboratorio": "eventos",
+  "casos": [
+    {
+      "nombre": "aviso",
+      "canal": "sensor",
+      "mensaje": { "sala": "lab" },
+      "mismo proceso": ["sala lab", "registro lab"],
+      "otro proceso": "no imprime el aviso"
+    }
+  ]
+}

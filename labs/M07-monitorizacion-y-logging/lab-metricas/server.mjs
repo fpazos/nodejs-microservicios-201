@@ -1,3 +1,5 @@
+// `votos` vive en este proceso y sale en el JSON del POST.
+// Prometheus no puede leer una variable: en este fichero no hay /metrics.
 import express from 'express';
 
 const app = express();
