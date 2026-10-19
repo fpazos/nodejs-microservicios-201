@@ -289,6 +289,13 @@ curl -s -w '\n%{http_code}\n' http://127.0.0.1:3001/salud
 
 Da de alta `i2` con título `ventana` y gravedad `media`, con la clave. Léela después sin cabecera `x-api-key`.
 
+Escribir
+curl -s -w '\n%{http_code}\n' -H 'x-api-key: lab-incidencias' -H 'Content-Type: application/json' \
+  -d '{"id":"i1","titulo":"ventana","gravedad":"media"}' http://127.0.0.1:3001/incidencias
+
+Leer:
+curl -s http://127.0.0.1:3001/incidencias/i1; echo
+
 <details>
 <summary>Ver solución</summary>
 

@@ -4,15 +4,16 @@
 // código HTTP. Si el error no trae status, la respuesta es 500.
 import express from 'express';
 import { validar } from './validar.mjs';
-import { montar } from './rutas.mjs';
-
+import { montar } from './ruta.mjs';
 
 const app = express();
 app.use(express.json());
 
 export const incidencias = [];
 
-app.get('/salud', (req, res) => {
+montar(app, validar, incidencias);
+
+app.get('/salud', validar, (req, res) => {
   res.json({ ok: true });
 });
 
