@@ -1,6 +1,8 @@
 # Laboratorio: descubrir prefijos en Consul
 
-El ejemplo de Consul ya registra `reloj`, y el cliente llama a la dirección que el listín le devuelve. Aquí `prefijos` responde en el 3001 y no se registra, así que `cliente.mjs` tiene el puerto escrito a mano. Primero anuncias el servicio y compruebas que Consul lo ve en passing. Después el cliente lee esa dirección, y solo entonces llama a `/codigo`. La UI de Consul es http://127.0.0.1:8500. El check de salud usa el nombre Docker `prefijos`, y la dirección que ve tu terminal es `127.0.0.1` porque el puerto está publicado en el host.
+El ejemplo de Consul ya registra `reloj`, y el cliente llama a la dirección que el listín le devuelve. Aquí `prefijos` responde en el 3001 y no se registra, así que `cliente.mjs` tiene el puerto escrito a mano. Primero anuncias el servicio y compruebas que Consul lo ve en passing. Después el cliente lee esa dirección, y solo entonces llama a `/codigo`. La UI de Consul es http://127.0.0.1:8500. La dirección que ve tu terminal es `127.0.0.1` porque el puerto está publicado en el host.
+
+Este laboratorio publica ambos puertos y configura `host.docker.internal` para que los contenedores alcancen esos puertos a través del host. Así también funciona en entornos Docker donde la comunicación directa entre contenedores de la red bridge está restringida.
 
 El registro en Consul y el JSON de `/codigo` están en [contrato.json](contrato.json).
 
@@ -33,8 +35,8 @@ Las mismas peticiones están en `peticiones.http`. Ábrelo y pulsa Send Request 
 ```js
 export async function registrar(consul) {
   // El PUT anuncia el servicio en el agente. Address y Port son los que
-  // ve tu terminal, en el host. El check lo hace Consul, que está en la
-  // red de Compose: allí el nombre es prefijos, no 127.0.0.1.
+  // ve tu terminal, en el host. El check llega por el puerto publicado
+  // porque en este entorno los contenedores no se alcanzan entre sí.
   const respuesta = await fetch(`${consul}/v1/agent/service/register`, {
     method: 'PUT',
     headers: { 'content-type': 'application/json' },
@@ -43,7 +45,7 @@ export async function registrar(consul) {
       ID: 'prefijos-1',
       Address: '127.0.0.1',
       Port: 3001,
-      Check: { HTTP: 'http://prefijos:3001/salud', Interval: '5s' },
+      Check: { HTTP: 'http://host.docker.internal:3001/salud', Interval: '5s' },
     }),
   });
   // Si el agente rechaza el registro, el proceso no sigue en silencio.
@@ -82,7 +84,7 @@ curl -s 'http://127.0.0.1:8500/v1/health/service/prefijos?passing'
 echo
 ```
 
-**Por qué:** Consul es el listín. Sin el PUT, el resto de servicios solo pueden usar una dirección que alguien les ha contado. El check usa `prefijos` porque desde el contenedor de Consul ese nombre resuelve; `127.0.0.1` dentro de Consul sería el propio Consul.
+**Por qué:** Consul es el listín. Sin el PUT, el resto de servicios solo pueden usar una dirección que alguien les ha contado. El check usa el puerto publicado del host para llegar a `prefijos`; `127.0.0.1` dentro de Consul sería el propio Consul.
 
 **Resultado esperado:** el log dice `registrado`. El curl del health devuelve un JSON con `"Service":"prefijos"` (no `[]`). En http://127.0.0.1:8500 el servicio pasa a passing. El cliente, si lo lanzas ahora, sigue imprimiendo `directo`: todavía no pregunta a Consul.
 
@@ -141,7 +143,7 @@ El cliente usa la dirección que devolvió Consul.
 ## Comprueba tu entendimiento
 
 **Sin passing no hay a quién llamar**
-En `registro.mjs` cambia el check a `http://prefijos:3001/no-esta`, reconstruye (`docker compose up --build -d`) y espera unos segundos. Guarda `cliente.mjs` si el watcher sigue; si no, `node cliente.mjs`.
+En `registro.mjs` cambia el check a `http://host.docker.internal:3001/no-esta`, reconstruye (`docker compose up --build -d`) y espera unos segundos. Guarda `cliente.mjs` si el watcher sigue; si no, `node cliente.mjs`.
 → `nadie en passing`. Vuelve a dejar el check en `/salud` para seguir.
 
 ## Reto
@@ -168,8 +170,9 @@ Al guardar, imprime `check passing` y después la línea `descubierto`. `Checks`
 
 | Síntoma | Causa probable | Cómo arreglarlo |
 |---------|----------------|-----------------|
-| El check está critical | `Address` y el check se han cruzado | El check es `http://prefijos:3001/salud`. La Address del cliente es `127.0.0.1` |
+| El check está critical | `Address` y el check se han cruzado | El check es `http://host.docker.internal:3001/salud`. La Address del cliente es `127.0.0.1` |
 | `ECONNREFUSED` en el cliente | El compose no está, o el registro aún no está en passing | `docker compose ps` y la UI |
+| `nadie en passing` y `prefijos` no aparece en `docker compose ps` | El registro pudo ejecutarse antes de que Consul estuviera listo | Este compose espera a que Consul esté healthy. Tras actualizarlo, ejecuta `docker compose up --build -d` para recrear los servicios |
 | El contenedor no coge tu cambio | Editaste `server.mjs` o `registro.mjs` y no reconstruiste | `docker compose up --build -d` |
 | `ConnectTimeoutError` con `consul:8500` en `docker logs ms-lab-prefijos`, o el check critical con `/salud` bien escrito | En el Codespace, los contenedores de Compose no se ven entre sí | `bash scripts/red-docker-codespace.sh` desde la raíz y `docker compose up --build -d` |
 | El health responde `[]` | El check todavía no ha pasado, o el PUT no se ejecutó | `docker logs ms-lab-prefijos` tiene que decir `registrado`. Espera el intervalo de 5 s |

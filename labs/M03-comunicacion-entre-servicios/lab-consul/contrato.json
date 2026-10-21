@@ -23,7 +23,7 @@
         "ID": "prefijos-1",
         "Address": "127.0.0.1",
         "Port": 3001,
-        "Check": { "HTTP": "http://prefijos:3001/salud", "Interval": "5s" }
+        "Check": { "HTTP": "http://host.docker.internal:3001/salud", "Interval": "5s" }
       }
     },
     {
