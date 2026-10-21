@@ -8,13 +8,13 @@ Consul es el listín. El servicio, al arrancar, se registra: nombre, dirección,
 
 El check tiene que poder fallar. Por eso el proceso escucha antes de registrarse: si se apunta en el listín y todavía no acepta conexiones, el check lo marca mal y el cliente no lo elige.
 
-En el ejemplo el servicio se llama `reloj`, el id es `reloj-1` y el check es `http://reloj:3001/salud`. La dirección registrada es el nombre de Docker `reloj`, porque el cliente también corre dentro de Compose. La UI de Consul está en el puerto 8500. El puerto del reloj no se publica en el host: quien lo encuentra es quien pregunta al listín.
+En el ejemplo el servicio se llama `reloj` y corre con dos réplicas. Cada una se registra con el mismo nombre y con su propio ID (`reloj-<hostname>`), su IP en la red de Compose y un check a `http://<su IP>:3001/salud`. El nombre de Docker `reloj` no vale como dirección: resuelve a cualquiera de las dos, y el listín tiene que distinguirlas. La UI de Consul está en el puerto 8500. El puerto del reloj no se publica en el host: quien lo encuentra es quien pregunta al listín.
 
 El temario de comunicación no nombraba el descubrimiento. Sin listín, el resto de mecanismos siguen necesitando la dirección a mano.
 
 ## Ejemplo
 
-La demostración está en [Consul](../../ejemplos/03-consul/README.md). En los logs, `registrado en consul`, luego el cliente imprime `reloj 3001` y un JSON con `hora` e `id` `reloj-1`. En la UI el servicio está en passing.
+La demostración está en [Consul](../../ejemplos/03-consul/README.md). En los logs, cada réplica dice `registrado en consul`. Luego el cliente imprime seis horas, y el `id` alterna entre las dos instancias. En la UI el servicio tiene dos instancias en passing.
 
 ## Laboratorio
 

@@ -72,6 +72,7 @@ JavaScript actual (módulos, promesas, `async`/`await`), HTTP (métodos, código
 | Node.js 22, Docker, curl | [infra/README.md](infra/README.md) |
 | kind, kubectl y Helm | Solo en las páginas de Kubernetes |
 | Dejar los puertos libres | `bash scripts/limpiar-entorno.sh` |
+| En un Codespace, que los contenedores de Compose se vean | `bash scripts/red-docker-codespace.sh` ([por qué](infra/README.md#codespace-contenedores-que-no-se-ven)) |
 
 ## Empieza aquí
 

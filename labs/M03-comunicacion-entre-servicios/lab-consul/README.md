@@ -12,6 +12,7 @@ Ver el servicio `prefijos` en passing y que `cliente.mjs` imprima `descubierto` 
 
 ```bash
 bash scripts/limpiar-entorno.sh
+bash scripts/red-docker-codespace.sh
 cd labs/M03-comunicacion-entre-servicios/lab-consul
 docker compose up --build -d
 curl -s http://127.0.0.1:3001/codigo
@@ -20,6 +21,8 @@ node cliente.mjs
 ```
 
 `/codigo` devuelve `{"codigo":"+34"}`. El cliente imprime `directo`. En la UI de Consul no hay servicio `prefijos`.
+
+`red-docker-codespace.sh` es para el Codespace: sin él, Consul y `prefijos` no se alcanzan dentro de Compose, el registro falla por timeout y el check nunca pasa a passing. Fuera de un Codespace no hace nada. La explicación está en [Entorno](../../../infra/README.md#codespace-contenedores-que-no-se-ven).
 
 Las mismas peticiones están en `peticiones.http`. Ábrelo y pulsa Send Request encima de la que quieras (extensión REST Client).
 
@@ -168,4 +171,5 @@ Al guardar, imprime `check passing` y después la línea `descubierto`. `Checks`
 | El check está critical | `Address` y el check se han cruzado | El check es `http://prefijos:3001/salud`. La Address del cliente es `127.0.0.1` |
 | `ECONNREFUSED` en el cliente | El compose no está, o el registro aún no está en passing | `docker compose ps` y la UI |
 | El contenedor no coge tu cambio | Editaste `server.mjs` o `registro.mjs` y no reconstruiste | `docker compose up --build -d` |
+| `ConnectTimeoutError` con `consul:8500` en `docker logs ms-lab-prefijos`, o el check critical con `/salud` bien escrito | En el Codespace, los contenedores de Compose no se ven entre sí | `bash scripts/red-docker-codespace.sh` desde la raíz y `docker compose up --build -d` |
 | El health responde `[]` | El check todavía no ha pasado, o el PUT no se ejecutó | `docker logs ms-lab-prefijos` tiene que decir `registrado`. Espera el intervalo de 5 s |

@@ -1,3 +1,5 @@
+# El nombre del proyecto empieza por ms- para que scripts/limpiar-entorno.sh lo borre.
+name: ms-consul
 services:
   consul:
     image: hashicorp/consul:1.20
@@ -7,7 +9,9 @@ services:
       - "8500:8500"
   reloj:
     build: ./reloj
-    container_name: ms-reloj
+    # Dos réplicas: sin container_name, Compose las llama ms-consul-reloj-1 y -2.
+    deploy:
+      replicas: 2
     environment:
       CONSUL_HTTP_ADDR: http://consul:8500
     depends_on:
