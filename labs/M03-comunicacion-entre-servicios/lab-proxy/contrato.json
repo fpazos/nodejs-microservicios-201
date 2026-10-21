@@ -1,0 +1,28 @@
+{
+  "laboratorio": "proxy inverso",
+  "base": "http://127.0.0.1:8080",
+  "cliente": "medir.mjs lee a 100 KB/s",
+  "casos": [
+    {
+      "nombre": "csv a mano",
+      "metodo": "GET",
+      "camino": "/api/facturas/csv",
+      "origen": "http://facturas:3001/csv",
+      "respuesta": { "status": 200, "bytes": 204800, "primerByte": "~2 s", "total": "~4 s" }
+    },
+    {
+      "nombre": "csv por el proxy",
+      "metodo": "GET",
+      "camino": "/proxy/csv",
+      "origen": "http://facturas:3001/csv",
+      "respuesta": { "status": 200, "bytes": 204800, "primerByte": "~0 s", "total": "~2 s" }
+    },
+    {
+      "nombre": "resumen por el proxy",
+      "metodo": "GET",
+      "camino": "/proxy/resumen",
+      "origen": "http://facturas:3001/resumen",
+      "respuesta": { "status": 200, "cuerpo": { "facturas": 10, "total": 1250 } }
+    }
+  ]
+}

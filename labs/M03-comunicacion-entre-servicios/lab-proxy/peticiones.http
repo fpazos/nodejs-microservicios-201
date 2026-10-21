@@ -1,0 +1,15 @@
+### Punto de partida
+
+curl http://127.0.0.1:8080/salud
+
+### 1 — El CSV por un proxy inverso
+
+curl -o /dev/null -w '%{http_code} %{size_download}\n' http://127.0.0.1:8080/proxy/csv
+
+### 2 — Lo que el proxy reenvía sin escribirlo
+
+curl http://127.0.0.1:8080/proxy/resumen
+
+### 2 — Lo que el proxy reenvía sin escribirlo
+
+curl http://127.0.0.1:8080/api/facturas/resumen

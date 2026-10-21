@@ -1,6 +1,6 @@
 # Gateway con HAProxy
 
-[← Gateway](06-gateway.md) · [Siguiente página →](../M04-estado-y-persistencia/00-mongoose.md)
+[← Proxy inverso](07-proxy-inverso.md) · [Siguiente página →](../M04-estado-y-persistencia/00-mongoose.md)
 
 El cliente entra por un solo puerto. HAProxy es el proceso que lo escucha. Lee `haproxy.cfg`: el frontend acepta la petición, una ACL mira el prefijo del camino y el backend nombra los procesos que pueden responder.
 

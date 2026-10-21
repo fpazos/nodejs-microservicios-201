@@ -1,6 +1,6 @@
 # Gateway
 
-[← Consul](05-consul.md) · [Siguiente página →](08-gateway-haproxy.md)
+[← Consul](05-consul.md) · [Siguiente página →](07-proxy-inverso.md)
 
 El cliente de fuera no tiene por qué conocer cada servicio. El gateway es el único puerto publicado. Mira el camino y reenvía.
 

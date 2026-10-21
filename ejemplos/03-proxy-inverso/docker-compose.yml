@@ -1,0 +1,13 @@
+# El nombre del proyecto empieza por ms- para que scripts/limpiar-entorno.sh lo borre.
+name: ms-proxy
+services:
+  informe:
+    build: ./informe
+    container_name: ms-proxy-informe
+  gateway:
+    build: ./gateway
+    container_name: ms-proxy-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - informe

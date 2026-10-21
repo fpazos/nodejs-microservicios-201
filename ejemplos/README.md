@@ -22,6 +22,7 @@ bash scripts/limpiar-entorno.sh
 | [03-websockets](03-websockets/README.md) | Un canal abierto en los dos sentidos |
 | [03-consul](03-consul/README.md) | Registrarse y descubrir |
 | [03-gateway](03-gateway/README.md) | Un puerto delante de dos servicios |
+| [03-proxy-inverso](03-proxy-inverso/README.md) | Encadenar la respuesta en vez de almacenarla |
 | [03-haproxy](03-haproxy/README.md) | El mismo puerto, con dos copias y un check |
 | [04-mongoose](04-mongoose/README.md) | Un documento en MongoDB |
 | [04-sequelize](04-sequelize/README.md) | Una fila en PostgreSQL |
