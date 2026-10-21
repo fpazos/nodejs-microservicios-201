@@ -45,7 +45,7 @@ Tiene que imprimir una dirección entre comillas en vez de `download timed out`.
 | 5432 | PostgreSQL |
 | 5672 / 15672 | RabbitMQ |
 | 6379 | Redis |
-| 8080 | Gateway |
+| 8080 | Gateway (Express y HAProxy) |
 | 8500 | Consul |
 | 9090 / 3000 | Prometheus / Grafana |
 | 9092 | Kafka |

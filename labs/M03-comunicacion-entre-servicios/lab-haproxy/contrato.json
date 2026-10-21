@@ -1,0 +1,26 @@
+{
+  "laboratorio": "haproxy",
+  "base": "http://127.0.0.1:8080",
+  "casos": [
+    {
+      "nombre": "salud del proxy",
+      "metodo": "GET",
+      "camino": "/salud",
+      "respuesta": { "status": 200, "cuerpo": "Service ready." }
+    },
+    {
+      "nombre": "almacen",
+      "metodo": "GET",
+      "camino": "/api/almacen/huecos",
+      "origen": "http://almacen:3002/huecos",
+      "respuesta": { "status": 200, "cuerpo": { "huecos": 12 } }
+    },
+    {
+      "nombre": "caja",
+      "metodo": "GET",
+      "camino": "/api/caja/abierta",
+      "origen": ["http://caja-1:3001/abierta", "http://caja-2:3001/abierta"],
+      "respuesta": { "status": 200, "cuerpo": { "caja": "1 o 2, por turnos" } }
+    }
+  ]
+}

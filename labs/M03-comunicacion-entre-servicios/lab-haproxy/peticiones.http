@@ -1,0 +1,51 @@
+### Punto de partida
+
+curl http://127.0.0.1:8080/salud
+
+### Punto de partida
+
+curl -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8080/api/caja/abierta
+
+### 1 — El almacén, un solo servidor
+
+curl http://127.0.0.1:8080/api/almacen/huecos
+
+### 1 — El almacén, un solo servidor
+
+curl -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8080/api/caja/abierta
+
+### 2 — Las dos cajas, el mismo camino
+
+curl http://127.0.0.1:8080/api/caja/abierta
+
+### 2 — Las dos cajas, el mismo camino
+
+curl http://127.0.0.1:8080/api/caja/abierta
+
+### 2 — Las dos cajas, el mismo camino
+
+curl http://127.0.0.1:8080/api/almacen/huecos
+
+### 3 — Una caja parada
+
+curl "http://127.0.0.1:8080/stats;csv"
+
+### 3 — Una caja parada
+
+curl http://127.0.0.1:8080/api/caja/abierta
+
+### Si quieres probar
+
+curl -w "\n%{http_code}\n" http://127.0.0.1:8080/api/almacen/huecos
+
+### Comprueba — Un camino que el servicio no tiene
+
+curl -w "\n%{http_code}\n" http://127.0.0.1:8080/api/caja/cerrada
+
+### Comprueba — Un prefijo que no has escrito
+
+curl -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8080/api/otra
+
+### Reto — Una cabecera que pone el proxy
+
+curl -D - -o /dev/null http://127.0.0.1:8080/api/almacen/huecos

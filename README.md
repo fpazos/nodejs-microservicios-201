@@ -46,6 +46,7 @@ JavaScript actual (módulos, promesas, `async`/`await`), HTTP (métodos, código
   - [WebSockets](labs/M03-comunicacion-entre-servicios/04-websockets.md)
   - [Consul](labs/M03-comunicacion-entre-servicios/05-consul.md)
   - [Gateway](labs/M03-comunicacion-entre-servicios/06-gateway.md)
+  - [Gateway con HAProxy](labs/M03-comunicacion-entre-servicios/08-gateway-haproxy.md)
 - **M04 — Estado y persistencia**
   - [Mongoose](labs/M04-estado-y-persistencia/00-mongoose.md)
   - [Sequelize](labs/M04-estado-y-persistencia/01-sequelize.md)

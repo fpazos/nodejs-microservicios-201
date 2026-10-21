@@ -1,6 +1,6 @@
 # MongoDB y Mongoose
 
-[← Gateway](../M03-comunicacion-entre-servicios/06-gateway.md) · [Siguiente página →](01-sequelize.md)
+[← Gateway con HAProxy](../M03-comunicacion-entre-servicios/08-gateway-haproxy.md) · [Siguiente página →](01-sequelize.md)
 
 El dato de un servicio tiene que seguir ahí cuando el proceso que lo escribió ya terminó. MongoDB lo guarda como documento, y Mongoose es quien describe en el código qué campos tiene ese documento y de qué tipo son. El ejemplo escribe un libro y el proceso de alta termina. Otro proceso, que no tiene el objeto en memoria, lo vuelve a leer: el isbn es `978-1`, el título `El mapa` y la base se llama `libros`. Un documento encaja cuando el recurso se lee y se escribe entero y los campos pueden variar de un registro a otro. La página siguiente es el otro extremo, una fila con columnas fijas.
 

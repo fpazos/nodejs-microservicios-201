@@ -1,6 +1,6 @@
 # Gateway
 
-[← Consul](05-consul.md) · [Siguiente página →](../M04-estado-y-persistencia/00-mongoose.md)
+[← Consul](05-consul.md) · [Siguiente página →](08-gateway-haproxy.md)
 
 El cliente de fuera no tiene por qué conocer cada servicio. El gateway es el único puerto publicado. Mira el camino y reenvía.
 
@@ -14,6 +14,8 @@ Los puertos 3001 y 3002 no están publicados en el host. Un `curl` directo no co
 Cada servicio tiene su Dockerfile en su carpeta. El gateway es otro proceso Express: no es un producto aparte. Kong o NGINX como plataforma quedan fuera. Aquí se ve el papel: un proceso delante, dos detrás, un contrato de caminos.
 
 El descubrimiento dice dónde está un servicio. El gateway dice por dónde entra el cliente. Hacen preguntas distintas.
+
+Cuando un mismo camino tiene dos procesos y un check de salud, ese papel lo hace HAProxy con un fichero. Está en [Gateway con HAProxy](08-gateway-haproxy.md).
 
 ## Ejemplo
 
