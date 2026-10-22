@@ -1,0 +1,18 @@
+labs/M04-estado-y-persistencia/lab-cache/lectura.mjs
+  h_befb45e742b321 1-18
+labs/M04-estado-y-persistencia/lab-cache/package-lock.json
+  h_befb45e742b321 1-1132
+labs/M04-estado-y-persistencia/lab-cache/server.mjs
+  h_befb45e742b321 7-8,18,26-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "7e48b1702486eb2049dcfd77c17174facfa78b67",
+  "prompts": {},
+  "humans": {
+    "h_befb45e742b321": {
+      "author": "Fernando Pazos Estévez <30479687+fpazos@users.noreply.github.com>"
+    }
+  }
+}
