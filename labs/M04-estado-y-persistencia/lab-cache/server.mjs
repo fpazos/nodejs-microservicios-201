@@ -4,6 +4,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Redis from 'ioredis';
+// leer es quien habla con Mongo y, cuando toque, con Redis.
+import { leer } from './lectura.mjs';
 
 await mongoose.connect('mongodb://127.0.0.1:27017/peliculas');
 const Pelicula = mongoose.model('Pelicula', new mongoose.Schema({
@@ -13,13 +15,23 @@ const Pelicula = mongoose.model('Pelicula', new mongoose.Schema({
 const redis = new Redis('redis://127.0.0.1:6379');
 const app = express();
 
-app.get('/peliculas/:id', async (req, res) => {
+/* app.get('/peliculas/:id', async (req, res) => {
   const doc = await Pelicula.findOne({ id: req.params.id }).lean();
   if (!doc) {
     res.status(404).json({ error: 'no encontrada' });
     return;
   }
   console.log('mongo', req.params.id);
+  res.json(doc);
+}); */
+
+// Este GET ya no consulta Mongo por su cuenta. De dónde sale el documento lo decide leer.
+app.get('/peliculas/:id', async (req, res) => {
+  const doc = await leer(Pelicula, redis, req.params.id);
+  if (!doc) {
+    res.status(404).json({ error: 'no encontrada' });
+    return;
+  }
   res.json(doc);
 });
 
